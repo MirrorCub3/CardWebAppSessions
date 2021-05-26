@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!-- -->
+<html>
+    <head>
+    <title>SETTINGS</title>
+    <link rel="icon" type="image/png" href="/views/PNG/AS.png">
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="altIndex.css">
+    <style type="text/css">
+
+    </style>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    </head>
+
+    <body>
+        <header>
+        <h1>SETTINGS</h1>
+        </header>
+    <br>
+
+        <form action="#">
+            <section id="playersettings">
+            <fieldset>
+            <legend>Player</legend>
+                <div id = "Player">
+                    <label for="playernum">Players:</label>
+                    <input id="playernum" type="number" name="playernum" min = "1" max = "4" step = "1" value = "1" title = "Max 4 Players"><br>
+
+                    <label for = "deal"> Dealing Options: </label>
+                    <select id = "deal" name = "deal" >
+                        <option selected = "selected" value = "DealAll" title = "All Cards In The Deck Are Dealt Until Empty"> Deal All </option>
+                        <option value = "StartingHand" title = "Set A Number Of Cards For Each Player To Start With"> Starting Hand </option>
+                    </select>
+                    <input id="hand" type="number" name="hand" min = "0" max = "60" step = "1" value = "0" title = "The Amount Of Cards Each Player Starts With"><br> <!-- append and deappend / activate and deactivate later -->
+                </div>
+            </fieldset>
+            </section>
+            <br>
+            <section id ="gamesettings">
+            <fieldset>
+            <legend>Game</legend>
+                <div id = "Game">
+                    <label for = "name"> Game Name:</label>
+                    <input id = "name" type = "text" name = "name" maxlength="20" value = "Virtual Cards" title = "What Players Will See In The Join - Limit 20 Characters">
+                    <!--<input id = "updateButton" type="button" value="Update Name" title= "Update And Refresh Current Game Name">-->
+                    <br>
+                    <div id = "psw">
+                        <label for = "Private"> Private </label>
+                        <input type = "checkbox" id = "Private">
+                        <label for = "psw"> Password:</label> <!-- append and deappend / activate and deactivate later -->
+                        <input id = "psw" type = "text" name = "psw" maxlength="10" title = "Password For Private Game">
+                    </div>
+                    <br>
+                    <fieldset>
+                      <legend>Deck</legend>
+                    <label for = "Joker">Jokers </label>
+                    <input type = "checkbox" id = "Joker" title= "Create Deck With 2 Jokers"><br>
+                    <label for = "Infinite">Infinite Mode: </label>
+                    <input type = "checkbox" id = "Infinite" title= "All Discards Are Constantly Returned To The Main Deck">
+                    <label for = "ShuffleOn">Shuffle On Replacement: </label>
+                    <input type = "checkbox" id = "ShuffleOn" disabled title= "Shuffle Discard Pile Into To Main Deck">
+                    </fieldset>
+                    <!--<hr>
+                    <fieldset>
+                    <legend title= "Only Accessible During An Active Game">Active Game Controls</legend>
+                        <input id = "DiscardToMain" type="button" disabled value="Discard To Main" title= "Return Discards To Main" onClick="discardToMain()">
+                        <input id = "Shuffle" type="button" disabled value="Shuffle Main" onClick="ShuffleMain()">
+                        <label for = "Auto"> Auto Cards: </label>
+                        <input type = "checkbox" id = "Auto" title= "Players Always Maintain At least the Starting Hand">
+                    </fieldset> -->
+                </div>
+            </fieldset>
+        </section>
+        <br>
+        <section id="submit">
+            <input type="reset" name="reset" value="Reset">
+            <input id = "GameButton" type="button" value="Create Game" title= "Start New Game - This Will Clear Any Previous Game History" onClick="SetGame()">
+            <label id = "openGame" for = "GameButton" onclick='return false;'> </label>
+            <!--<input id = "end" type="button" value="End Game" title= "End the Current Running Game">-->
+        </section>
+        </form>
+
+        <script src="js/create.js"> </script>
+    </body>
+</html>

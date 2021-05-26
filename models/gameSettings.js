@@ -6,14 +6,18 @@ var gameSettingSchema = mongoose.Schema({
 		unique: true,
 		type:Number
 	},
-	name: String,
 	host: String,
+	name: String,
 	players: Number,
+	gameActive: Boolean,
+	private:Boolean,
+	password: String,
 
   dealAll: Boolean,
   startHand: Number,
-
-  gameActive: Boolean,
+	jokers:Boolean,
+	infinite:Boolean,
+	replaceShuffle: Boolean,
 
 });
 
