@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>PLAYER</title>
+    <link rel="icon" type="image/png" href="/views/PNG/AS.png">
+    <link rel="stylesheet" href="altPlayer.css">
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1 id = "playerId">PLAYER</h1>
+      <h3 id = "gameName">Virtual Cards</h3>
+    </header>
+      <canvas id="canvas"  style="position:absolute; "> Your browser does not support HTML5 Canvas.</canvas>
+      <section id="box">
+      <div>
+          <label>Username:</label>
+          <input id="nameset" type="text" maxlength="25">
+          <br>
+          <label>Chat:</label>
+          <br>
+          <textarea id="chatbox" rows= "12" cols="45" readonly style="resize:none"></textarea>
+          <br>
+          <label>Send Message</label>
+          <br>
+          <input id="sendMessage" type="text">
+          <input id="sendButton" type= "submit" value="Send" onClick = "SendMessage()">
+          <hr>
+          <div id="tableButtons" style = "align-items: center;">
+            <input id="clearTable" type= "button" value="Clear Table" title= "Discard All Cards On Your Table" onClick = "clearTable()" >
+            <input id="pullTable" type= "button" value="Pull" title= " Pull Most Recent Card Back From Table" onClick = "PullTable()" >
+            <input id="toTable" type= "button" value="Send To Table" title= "Send Card To Table - Cards Over Limit Will Be Discarded" onClick = "ToTable()" >
+          </div>
+          <hr>
+          <div id = "pileButtons">
+              <input id="drawDiscard" type= "button" disabled value="Draw Discard" title= "Draw One Card From Top of Discard" onClick = "drawDiscard()">
+              <input id="discard" type= "button" value="Discard" title= "Discard Currently Selected Card" onClick = "Discard()">
+              <input id="main" type= "button" value="Draw Card" title= "Draw One Card" onClick = "DrawCard()">
+          </div>
+          <hr>
+          <div id = "shiftButtons">
+            <input id="shiftLeft" type= "button" value=" < Shift Left" title= "Shift Hand To The Left" onClick = "shiftLeft()" >
+            <input id="shiftRight" type= "button" value=" Shift Right > " title= "Shift Hand To The Right" onClick = "shiftRight()" >
+          </div>
+      </div>
+      <fieldset>
+        <legend title= "Only Accessible During An Active Game">Active Game Controls</legend>
+            <input id = "DiscardToMain" type="button" disabled value="Discard To Main" title= "Return Discards To Main" onClick="discardToMain()">
+            <input id = "Shuffle" type="button" disabled value="Shuffle Main" onClick="ShuffleMain()">
+            <!--<label for = "Auto"> Auto Cards: </label>
+            <input type = "checkbox" id = "Auto" title= "Players Always Maintain At least the Starting Hand"> -->
+        </fieldset>
+    </section>
+      <script src="js/playerone.js"></script>
+  </body>
+</html>
