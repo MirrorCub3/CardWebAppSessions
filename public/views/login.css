@@ -1,0 +1,12 @@
+body{
+	 text-align: center;
+    background: url(back.png);
+    font-family: 'Courier New', Courier, monospace;
+    font-style: oblique;
+    font-variant: small-caps;
+      color: white;
+      font-size: 30px;
+}
+  a {
+        color: red;
+      }
