@@ -30,21 +30,21 @@
 
                 $("#grade").val(data.retVal.grade);
 
-      
+
                 alert("good read");
               }
-            } ,     
+            } ,
             dataType: "json"
-          });     
+          });
   		  return false;
   		}
-      
+
 
       function updateClicked(){
 
           $.ajax({
             url: "/update",
-            type: "PUT",            
+            type: "PUT",
 
             data: {
             grade:$("#grade").val(),volleyball:$("#volleyball").prop("checked"),basketball:$("#basketball").prop("checked"),
@@ -56,22 +56,22 @@
                 alert("bad update");
               else
                 alert("good update");
-            } ,     
+            } ,
             dataType: "json"
-          });     
+          });
         return false;
       }
 
- 		
+
 function logoutClicked(){
 	$.get("/logout",function(data){
 		window.location = data.redirect;
 	});
-	return false;             
+	return false;
 }
 
 
-$(document).ready(function(){ 
+$(document).ready(function(){
   console.log("session ready");
 //  $("#createButton").click(createClicked);
   $("#readButton").click(readClicked);
@@ -105,7 +105,7 @@ $(document).ready(function(){
 
       $("#grade").val(data.retVal.grade);
 
-      
+
 
     }
 	});
@@ -123,13 +123,10 @@ $(document).ready(function(){
 //          return false;
 //        }
 
-  
+
     return false;
   })
 
 
 
-});  		
-    
-
-
+});

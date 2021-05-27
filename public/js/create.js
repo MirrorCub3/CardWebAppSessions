@@ -3,23 +3,23 @@ function SetGame(){
           infinite:$("#Infinite").prop("checked"),shuffleon:$("#ShuffleOn").prop("checked"),
           joker:$("#Joker").prop("checked")},success);
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-function UpdateGame(){
-    $.post("/update", {name:$("#name").val()},success);
-}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-function EndGame(){
-    $.get("/end",success);
-}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-function discardToMain(){
-    $.post("/discardtomain",null);
-}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-function ShuffleMain(){
-    $.post("/shuffle",null);
-}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////////////////////////////////
+// function UpdateGame(){
+//     $.post("/update", {name:$("#name").val()},success);
+// }
+// /////////////////////////////////////////////////////////////////////////////////////////////////////////
+// function EndGame(){
+//     $.get("/end",success);
+// }
+// /////////////////////////////////////////////////////////////////////////////////////////////////////////
+// function discardToMain(){
+//     $.post("/discardtomain",null);
+// }
+// /////////////////////////////////////////////////////////////////////////////////////////////////////////
+// function ShuffleMain(){
+//     $.post("/shuffle",null);
+// }
+// /////////////////////////////////////////////////////////////////////////////////////////////////////////
 function success(data) {
     switch(data.error) {
         // case 0: alert("Game Created!");;break;
@@ -58,18 +58,18 @@ function checkSuccess(data){
         $('#ShuffleOn').attr("disabled", true);
         $("#Joker").attr("disabled", true);
 
-        $("#GameButton").val("End Game");
-        $("#GameButton").attr( 'title',"End The Current Running Game");
-        $("#GameButton").attr( 'onClick',"EndGame()");
+        //$("#GameButton").val("End Game");
+        //$("#GameButton").attr( 'title',"End The Current Running Game");
+        //$("#GameButton").attr( 'onClick',"EndGame()");
 
-        if(data.discard.length > 0){
-          $("#DiscardToMain").removeAttr("disabled");
-          $("#DiscardToMain").val("Discard To Main");
-        }
-        else{
-          $("#DiscardToMain").attr("disabled", true);
-          $("#DiscardToMain").val("Discard Empty");
-        }
+        // if(data.discard.length > 0){
+        //   $("#DiscardToMain").removeAttr("disabled");
+        //   $("#DiscardToMain").val("Discard To Main");
+        // }
+        // else{
+        //   $("#DiscardToMain").attr("disabled", true);
+        //   $("#DiscardToMain").val("Discard Empty");
+        // }
 
         if($("#Infinite").prop("checked")){
           $("#DiscardToMain").attr("disabled", true);
@@ -80,16 +80,16 @@ function checkSuccess(data){
           $("#DiscardToMain").attr( 'title',"Return Discards To Main");
         }
 
-        if(data.empty == true){
-          $("#Shuffle").val("Main Empty");
-          $("#Shuffle").attr("disabled", true);
-        }
-        else if(data.empty == false){
-          $("#Shuffle").val("Shuffle Main");
-          $("#Shuffle").removeAttr("disabled");
-        }
+        // if(data.empty == true){
+        //   $("#Shuffle").val("Main Empty");
+        //   $("#Shuffle").attr("disabled", true);
+        // }
+        // else if(data.empty == false){
+        //   $("#Shuffle").val("Shuffle Main");
+        //   $("#Shuffle").removeAttr("disabled");
+        // }
 
-        document.getElementById("openGame").textContent = "Open On /player";
+        // document.getElementById("openGame").textContent = "Open On /player";
     }
     else if(data.gameactive == false){
         $('#playernum').removeAttr("disabled");
@@ -100,9 +100,9 @@ function checkSuccess(data){
         if($("#ShuffleOn").is(":disabled")){
             $("#ShuffleOn").prop('checked', false);
         }
-        $("#DiscardToMain").attr("disabled", true);
-        $("#DiscardToMain").val("Discard To Main");
-        $("#Shuffle").attr("disabled", true);
+        // $("#DiscardToMain").attr("disabled", true);
+        // $("#DiscardToMain").val("Discard To Main");
+        // $("#Shuffle").attr("disabled", true);
 
         document.getElementById("openGame").textContent = "";
 
