@@ -38,12 +38,13 @@
             $("#hand").attr( 'max',deckSize);
           }
         }
-        function onChangeName(){
+        function onChangeText(){
             console.log("change name");
-
+            if(!validString($("#name").val()))
+              alert("invalid string");
         }
         function validString(string) {
-            let regex =  /^[A-Za-z0-9 ]*[A-Za-z0-9 ]*$/;
+            let regex =  /^[A-Za-z0-9!?*()"' ]*[A-Za-z0-9!?*()"' ]*$/;
             let  validString = regex.test(string);
             return (validString);
          }
