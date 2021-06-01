@@ -16,7 +16,7 @@ module.exports = function() {
   });
 
   passport.use("login", new LocalStrategy(function(username, password, done) {
-    User.findOne({ username: username }, function(err, user) {
+    User.findOne({ username: username }, function(err, user) { // acceses the users collection not the infos
       if (err) { return done(err); }
       if (!user) {
         return done(null, false, { message: "No user has that username!" });
@@ -24,12 +24,11 @@ module.exports = function() {
       user.checkPassword(password, function(err, isMatch) {
         if (err) { return done(err); }
         if (isMatch) {
-          return done(null, user);
+          return done(null, user); // returns pointer to the user
         } else {
           return done(null, false, { message: "Invalid password." });
         }
       });
     });
   }));
-
 };

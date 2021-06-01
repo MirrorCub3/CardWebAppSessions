@@ -7,22 +7,18 @@ var passport = require("passport");
 var path = require("path");
 var session = require("express-session");
 
+
 var setUpPassport = require("./setuppassport");
-var routes = require("./routes");
-var routesData = require("./routesData");    //added
-var routesBook = require("./routesBook");    //added
+var routes = require("./routes"); // sesion request handlers
+var routesData = require("./routesData");    //added // student information request handlers
 
 var app = express();
-mongoose.connect("mongodb://localhost:27017/librarydb");   //27017 seems to be the port number used by mongod
+mongoose.connect("mongodb://localhost:27017/cardApp", {useMongoClient:true});   //27017 seems to be the port number used by mongod
 setUpPassport();
 
 app.set("port", process.env.PORT || 3000);
 
-app.use('/', express.static('./'));
-app.use('/js', express.static('./public/js'));
-
-
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static("./public"));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -41,7 +37,6 @@ app.use(passport.session());
 
 app.use(routes);
 app.use(routesData);
-app.use(routesBook);
 
 app.listen(app.get("port"), function() {
   console.log("Server started on port " + app.get("port"));

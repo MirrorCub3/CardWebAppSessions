@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
-const Player = require("./playerObject.js");
-const Deck = require("./cards.js");
+const Player = require("../Player.js");
+const Deck = require("../cards.js");
 
 var gameInfoSchema = mongoose.Schema({
 	ident: {
@@ -8,8 +8,8 @@ var gameInfoSchema = mongoose.Schema({
 		unique: true,
 		type:Number
 	},
-	player: [Player],
-  deck:Deck,
+	player: [Object],
+  deck:Object,
 });
 
 var GameInfo = mongoose.model("GameInfo", gameInfoSchema);

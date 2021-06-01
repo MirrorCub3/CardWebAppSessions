@@ -1,116 +1,115 @@
 
+      var ident = 0;
+      var name = "";
+      let openEdit = false;
+
+      // function updateClicked(){ // updte butto function
+      //     $.ajax({
+      //       url: "/update", // in routesData
+      //       type: "PUT",
+      //
+      //       data: {
+      //       grade:$("#grade").val(),volleyball:$("#volleyball").prop("checked"),basketball:$("#basketball").prop("checked"),
+      //       soccer:$("#soccer").prop("checked"), driver:$("#driver").prop("checked")
+      //
+      //       },
+      //       success: function(data){
+      //         if (!data.retVal)
+      //           alert("bad update");
+      //         else
+      //           alert("good update");
+      //       } ,
+      //       dataType: "json"
+      //     });
+      //   return false;
+      // }
 
 
-  		function readClicked(){
-
-
-          $.ajax({
-            url: "/read",
-            type: "GET",
-            data: {},
-            success: function(data){
-              if (!data.retVal)
-                alert("bad read");
-              else {
-
-            if (data.retVal.volleyball)
-              $("#volleyball").prop("checked",true);
-            else
-              $("#volleyball").prop("checked",false);
-
-            if (data.retVal.basketball)
-              $("#basketball").prop("checked",true);
-            else
-              $("#basketball").prop("checked",false);
-
-            if (data.retVal.soccer)
-              $("#soccer").prop("checked",true);
-            else
-              $("#soccer").prop("checked",false);
-
-                $("#grade").val(data.retVal.grade);
-
-
-                alert("good read");
-              }
-            } ,
-            dataType: "json"
-          });
-  		  return false;
-  		}
-
-
-      function updateClicked(){
-
-          $.ajax({
-            url: "/update",
-            type: "PUT",
-
-            data: {
-            grade:$("#grade").val(),volleyball:$("#volleyball").prop("checked"),basketball:$("#basketball").prop("checked"),
-            soccer:$("#soccer").prop("checked")
-
-            },
-            success: function(data){
-              if (!data.retVal)
-                alert("bad update");
-              else
-                alert("good update");
-            } ,
-            dataType: "json"
-          });
-        return false;
-      }
-
-
-function logoutClicked(){
-	$.get("/logout",function(data){
+function logoutClicked(){ //logout function
+    console.log("log out");
+	$.get("/logout",function(data){ // in routes
 		window.location = data.redirect;
 	});
 	return false;
 }
+function ToggleVis(){
+  var x = $("#password");
+  console.log(x.attr('type'));
+    if (x.attr('type') == "password") {
+      x.attr("type", 'text');
+    } else {
+      x.attr("type", 'password');
+    }
+    console.log(x);
+}
+function updateClicked(){
+  if(/^[ ]*[ ]*$/.test($("#password").val())){
+    alert("bad password");
+    return;
+  }
+      $.ajax({
+        url: "/changepsw", // in routes
+        type: "POST",
 
-
-$(document).ready(function(){
+        data: {
+          ident: ident,
+          password:$("#password").val()
+        },
+        success: function(data){
+          if(!data.retVal){
+            alert("bad password");
+          }
+          if (data.retVal){
+            alert("password updated");
+              $("#password").val("");
+          }
+        } ,
+        dataType: "json"
+      });
+    return false;
+}
+function onEdit(){
+    if(openEdit)
+        return;
+    openEdit = true;
+    $("#edit").attr('hidden', true);
+    $("#editInfo").attr('hidden', false);
+}
+function onCancel(){
+  $("#editInfo").attr('hidden', true);
+  openEdit = false;
+  $("#edit").attr('hidden', false);
+}
+$(document).ready(function(){ //called on the load to udate th broswr to match the stored student info
   console.log("session ready");
 //  $("#createButton").click(createClicked);
-  $("#readButton").click(readClicked);
-  $("#updateButton").click(updateClicked);
+  // $("#readButton").click(readClicked);
 //  $("#deleteButton").click(deleteClicked);
 
 
-	$.get("/userInfo",function(data){
+	$.get("/userInfo",function(data){ // gets the values stored in the database
       console.log("in userInfo");
 		if (data.retVal.name) {
-      console.log(data.retVal.grade);
-      console.log(data.retVal.volleyball);
-      console.log(data.retVal.basketball);
-      console.log(data.retVal.soccer);
-			$("#session").html("Session " + data.retVal.name + " " + data.retVal.ident);
+      console.log(data.retVal.name);
+      console.log(data.retVal.ident);
 
-      if (data.retVal.volleyball)
-        $("#volleyball").prop("checked",true);
-      else
-        $("#volleyball").prop("checked",false);
-
-      if (data.retVal.basketball)
-        $("#basketball").prop("checked",true);
-      else
-        $("#basketball").prop("checked",false);
-
-      if (data.retVal.soccer)
-        $("#soccer").prop("checked",true);
-      else
-        $("#soccer").prop("checked",false);
-
-      $("#grade").val(data.retVal.grade);
-
-
-
+      ident =  data.retVal.ident;
+      name = data.retVal.name;
+      $("#name").text("Welcome " + name);
+      console.log("name =" + name);
+// sets the browser wit the correct info = callback
     }
+    //
+    // $("#psw").keydown( function( event ) {
+    //     if ( event.which === 13 ) {
+    //       userClicked();
+    //       event.preventDefault();
+    //       return false;
+    //     }
+    // });
+
 	});
 
-	$("#logout").click(logoutClicked);
 
   $("form").submit(function(event)
   {

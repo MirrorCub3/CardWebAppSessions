@@ -4,8 +4,9 @@ var passport = require("passport");
 
 //added below for mongo
 //var mongoose = require("mongoose");
-//var Info = require("./models/Info");
 var User = require("./models/user");
+const GameInfo = require('./models/gameInfo');
+const GameSettings = require('./models/gameSettings');
 
 //added above for mongo
 
@@ -36,9 +37,10 @@ const myDatabase = require('./myDatabase');
 
 let db = new myDatabase();
 const Student = require('./Student');
+const GameSettingsJS = require('./gameSettings');
 
 
-router.get('/read', function(req, res){
+router.get('/read', function(req, res){ // the read from sessions
 	if (req.isAuthenticated()) {
 		return(db.getStudent(req.user.ident,res));
 	}
@@ -52,7 +54,7 @@ router.get('/readAdmin', function(req, res){
 		if (req.user.username == "admin")
 		{
 
-//added below for mongo	
+//added below for mongo
 
 console.log("readAdmin " + req.query.ident);
 		return(db.getStudent(req.query.ident,res));
@@ -72,7 +74,7 @@ router.post('/create', function(req, res){
 
 	if (req.isAuthenticated()) {
 
-		if (req.body.name == "") {
+		if (/^[ ]*[ ]*$/.test($(req.body.name))) { // the .name is from the req.authenticated student pointer not from the original request
 			res.json(null);
 			return;
 		}
@@ -84,11 +86,11 @@ router.post('/create', function(req, res){
 
 		console.log(req.body.grade);
 		console.log(req.body.volleyball);
-
-//added below for mongo		
-	let obj = new Student(req.user.ident,req.user.username,req.body.grade,req.body.volleyball,
-		req.body.basketball,req.body.soccer);
-		return(db.postStudent(obj,res));	
+console.log("Routes data create driver = " + req.body.driver);
+//added below for mongo
+	let obj = new Student(req.user.ident,req.user.username,req.body.grade,req.body.volleyball, // calling the database and creating this new student document -- - same as the previous session concept
+		req.body.basketball,req.body.soccer,req.body.driver);
+		return(db.postStudent(obj,res)); // calling the dtatbase
 
 	}
 	else
@@ -97,7 +99,7 @@ router.post('/create', function(req, res){
 
 
 
-router.put('/updateAdmin', function(req, res){
+router.put('/updateAdmin', function(req, res){ // called in admin session
 
 	if (req.isAuthenticated()) {
 
@@ -111,17 +113,27 @@ console.log(req.body.grade);
 			res.json(null);
 			return;
 		}
-//added below for mongo		
-	let obj = new Student(req.body.ident,req.body.name,req.body.grade,req.body.volleyball,req.body.basketball,req.body.soccer);
+    console.log("Routes data admin driver = " + req.body.driver);
+//added below for mongo
+	let obj = new Student(req.body.ident,req.body.name,req.body.grade,req.body.volleyball,req.body.basketball,req.body.soccer, req.body.driver);
 		return(db.putStudent(obj,res));
 	}
 	else
 		res.json(null);
 });
 
+router.delete('/deleteAdmin/:identifier', function(req, res){
+	return( db.deleteStudent(req.params.identifier,res));	// sending in the id
+  // db.deleteStudent(req.params.identifier,res);	// sending in the id
+  // if (req.isAuthenticated()) {
+  //   res.redirect("/successlogin");
+  // } else {
+  //   res.redirect("/faillogin");
+  // }
+});
 
 
-router.put('/update', function(req, res){
+router.put('/update', function(req, res){ // called on /update in the session
 
 	if (req.isAuthenticated()) {
 
@@ -129,8 +141,9 @@ router.put('/update', function(req, res){
 			res.json(null);
 			return;
 		}
-//added below for mongo		
-	let obj = new Student(req.user.ident,req.user.username,req.body.grade,req.body.volleyball,req.body.basketball,req.body.soccer);
+    console.log("Routes data driver = " + req.body.driver);
+//added below for mongo
+	let obj = new Student(req.user.ident,req.user.username,req.body.grade,req.body.volleyball,req.body.basketball,req.body.soccer,req.body.driver);
 		return(db.putStudent(obj,res));
 
 	}
@@ -138,25 +151,4 @@ router.put('/update', function(req, res){
 		res.json(null);
 });
 
-
-//router.delete('/delete/:identifier', function(req, res){
-////added below for mongo	
-//	return( db.deleteStudent(req.params.identifier,res));
-////added above for mongo
-//});
-
-
-router.get("/userInfo",function(req,res){
-      console.log("top userInfo");
-  if (req.isAuthenticated()) {
-      console.log("userInfo is auth");
-      db.getStudent(req.user.ident,res);
-	}
-	else {
-		res.json(null);
-	}
-});
-
-
 module.exports = router;
-

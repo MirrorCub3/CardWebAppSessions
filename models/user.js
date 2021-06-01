@@ -4,7 +4,7 @@ var SALT_FACTOR = 10;
 var mongoose = require("mongoose");
 
 var userSchema = mongoose.Schema({
-  username: { type: String, required: true, unique: true},
+  username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   ident: { type: Number, required: true }
 });
@@ -21,7 +21,7 @@ userSchema.pre("save", function(done) {
 
   bcrypt.genSalt(SALT_FACTOR, function(err, salt) {
     if (err) { return done(err); }
-    bcrypt.hash(user.password, salt, noop, function(err, hashedPassword) {
+    bcrypt.hash(user.password, salt, noop, function(err, hashedPassword) { // encrypting password
       if (err) { return done(err); }
       user.password = hashedPassword;
       done();
@@ -29,7 +29,7 @@ userSchema.pre("save", function(done) {
   });
 });
 
-userSchema.methods.checkPassword = function(guess, done) {
+userSchema.methods.checkPassword = function(guess, done) {// check passwrd against encrypted one
   bcrypt.compare(guess, this.password, function(err, isMatch) {
     done(err, isMatch);
   });

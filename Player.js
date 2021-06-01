@@ -13,8 +13,4 @@ module.exports = class Player {
       this.id = parseInt(id);
       //this.username = username;
     }
-    // setActive(activeState){
-    //     this.active = activeState;
-    //     //console.log(this);
-    // }
 }

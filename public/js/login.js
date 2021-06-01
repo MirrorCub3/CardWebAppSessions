@@ -1,7 +1,7 @@
 
   		function userClicked(){
 
-          if ($("#username").val() == "" || $("#psw").val() == "")
+          if (/^[ ]*[ ]*$/.test($("#username").val())||/^[ ]*[ ]*$/.test( $("#psw").val()))
           {
             alert("bad login");
             return false;
@@ -13,7 +13,7 @@
     			return false;
     	}
 
-  		$(document).ready(function(){ 
+  		$(document).ready(function(){
 
         $("#username").keydown( function( event ) {
             if ( event.which === 13 ) {
@@ -22,7 +22,7 @@
               return false;
             }
         });
-        
+
         $("#psw").keydown( function( event ) {
             if ( event.which === 13 ) {
               userClicked();
@@ -32,7 +32,4 @@
         });
 
 
-  		});  		
-    
-
-
+  		});
