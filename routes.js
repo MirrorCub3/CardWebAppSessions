@@ -70,7 +70,10 @@ function initGameIdent(){ // check everytime a ident is gotten to update it to t
   }
 }
 
-
+router.get("/getGameList", function(req,res,next){
+  return(db.getGameList(req.user.ident,res));
+//	return(db.getStudent(req.user.ident,res));
+});
 router.get("/successroot", function(req, res) {
 console.log("get successroot");
 	res.json({redirect:"/"});
