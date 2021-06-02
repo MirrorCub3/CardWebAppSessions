@@ -1,0 +1,105 @@
+body{
+    background: url(back.png);
+    font-family: 'Courier New', Courier, monospace;
+    font-style: italic;
+    font-variant: small-caps;
+}
+.container{
+    align-items: flex-start;
+}
+input[type="button"],input[type="reset"],input[type="submit"]{
+    background-color: #000000;
+    color:#ffffff;
+    font-family: 'Courier New', Courier, monospace;
+    font-style: oblique;
+    font-variant: small-caps;
+    border: 2px outset red;
+    font-size: 1em;
+}
+input[disabled]{
+    background-color: #999999;
+    color:#000000;
+    font-family: 'Courier New', Courier, monospace;
+    font-style: oblique;
+    font-variant: small-caps;
+    border: 2px outset red;
+    font-size: 1em;
+}
+header {
+    /*background-image:url(tokyoo.gif);*/
+    background-color:#000000;
+    color:whitesmoke;
+    font: 10px;
+    width: 350px;
+    border-style: outset;
+    border-color:#cc0000;
+    border-width: 5px;
+    display: block;
+    font-size: 2em;
+    line-height: .5em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 2px;
+    padding-inline-start: 0.75em;
+    resize:none;
+
+}
+div {
+    display: block;
+
+}
+
+section{
+    position: fixed;
+    bottom: 10px;
+    border:#cc0000 5px outset;
+    color:whitesmoke;
+    float: left;
+    font-size: 20px;
+    /*background-color:transparent;*/
+    background-color: rgba(0, 0, 0, 0.3);
+    display: block;
+    margin-inline-start: 2px;
+    margin-inline-end: 2px;
+    padding-block-start: 0.35em;
+    padding-inline-start: 0.75em;
+    padding-inline-end: 0.75em;
+    padding-block-end: 0.625em;
+    min-inline-size: min-content;
+
+
+}
+
+textarea{
+    color:whitesmoke;
+    border:#cc0000 5px outset;
+    background-color:#000000;
+    margin-inline-end: 2px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: black;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #999;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+section#carrddeck{
+    border:#793185 5px outset;
+    background-image:url(nihon.gif);
+    color:white;
+}
+canvas{
+    align-items: flex-start;
+    position: static;
+    float:left;
+}

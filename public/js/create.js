@@ -22,8 +22,7 @@ function SetGame(){
   $.post("/creategame",{hostName:name, name:$("#name").val(), players:$("#playernum").val(), gameActive: true, private:$("#Private").prop('checked'),
           password:$("#psw").val(),dealAll:all, startHand:$("#hand").val(), jokers:$("#Joker").prop("checked"), infinite:$("#Infinite").prop("checked"),replace:$("#ShuffleOn").prop("checked")},
           function(data){
-            console.log("done post game");
-            console.log(data);
+              window.redirect = "/views/player.html";
           });
 }
 function onChangeDeal(){

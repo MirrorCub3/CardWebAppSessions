@@ -24,15 +24,15 @@ myDatabase.prototype.postStudent = function(student,res) {
         return res.json({retVal:true});
     });
 }
-myDatabase.prototype.postGame = function(game,res) {
-  console.log(" host name = " + game.hostName);
-    GameSettings.create(game,function(error,info) { // this mongoose call will create the student document in the infos collection
-        if (error) {
-            return res.json({retVal:false});
-        }
-        return res.json({retVal:true});
-    });
-}
+// myDatabase.prototype.postGame = function(game,res) {
+//   console.log(" host name = " + game.hostName);
+//     GameSettings.create(game,function(error,info) { // this mongoose call will create the student document in the infos collection
+//         if (error) {
+//             return res.json({retVal:false});
+//         }
+//         return res.json({retVal:true});
+//     });
+// }
 
 myDatabase.prototype.getUser = function(ident,res) { // geting the stuent info - called on document.ready and in the read function on student sessions and admin
   User.find({ident:ident},function(error,user) { //doing a find on the students id - the unique identifier

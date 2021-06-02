@@ -11,7 +11,7 @@ var session = require("express-session");
 var setUpPassport = require("./setuppassport");
 var routes = require("./routes"); // sesion request handlers
 var routesData = require("./routesData");    //added // student information request handlers
-
+var routesGame = require("./routesGame");
 var app = express();
 mongoose.connect("mongodb://localhost:27017/cardApp", {useMongoClient:true});   //27017 seems to be the port number used by mongod
 setUpPassport();
@@ -37,6 +37,7 @@ app.use(passport.session());
 
 app.use(routes);
 app.use(routesData);
+app.use(routesGame);
 
 app.listen(app.get("port"), function() {
   console.log("Server started on port " + app.get("port"));

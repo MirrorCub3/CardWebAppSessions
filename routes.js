@@ -289,31 +289,31 @@ router.post("/login", passport.authenticate("login", { // if incorect password w
   failureFlash: true
 }));
 
-
-router.post("/creategame", function(req, res) {
-  console.log(req);
-  initGameIdent();
-console.log("post creategame");
-
-  gameIdent++; // plus one to ident = notice how the id is already ++ even though it hasn't passes the find null check yet - try moving this below the return line and see if it causes issues
-
-  var newGame = new GameSettingsJS(
-    gameIdent,
-    req.body.hostName,
-    req.body.name,
-    req.body.players,
-    req.body.gameActive,
-    req.body.private,
-  	req.body.password,
-
-    req.body.dealAll,
-    req.body.startHand,
-  	req.body.jokers,
-  	req.body.infinite,
-  	req.body.replace,
-  );
-console.log(newGame);
-return(db.postGame(newGame,res));
-});
+// 
+// router.post("/creategame", function(req, res) {
+//   console.log(req);
+//   initGameIdent();
+// console.log("post creategame");
+//
+//   gameIdent++; // plus one to ident = notice how the id is already ++ even though it hasn't passes the find null check yet - try moving this below the return line and see if it causes issues
+//
+//   var newGame = new GameSettingsJS(
+//     gameIdent,
+//     req.body.hostName,
+//     req.body.name,
+//     req.body.players,
+//     req.body.gameActive,
+//     req.body.private,
+//   	req.body.password,
+//
+//     req.body.dealAll,
+//     req.body.startHand,
+//   	req.body.jokers,
+//   	req.body.infinite,
+//   	req.body.replace,
+//   );
+// console.log(newGame);
+// return(db.postGame(newGame,res));
+// });
 
 module.exports = router;
