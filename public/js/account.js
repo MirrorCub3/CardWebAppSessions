@@ -34,13 +34,11 @@ function logoutClicked(){ //logout function
 }
 function ToggleVis(){
   var x = $("#password");
-  console.log(x.attr('type'));
     if (x.attr('type') == "password") {
       x.attr("type", 'text');
     } else {
       x.attr("type", 'password');
     }
-    console.log(x);
 }
 function updateClicked(){
   if(/^[ ]*[ ]*$/.test($("#password").val())){
@@ -79,6 +77,12 @@ function onCancel(){
   $("#editInfo").attr('hidden', true);
   openEdit = false;
   $("#edit").attr('hidden', false);
+}
+function getCreate(){
+  $.get("/create",function (data){
+    console.log('data redirect: ' + data.redirect);
+      window.location = data.redirect;
+  });
 }
 $(document).ready(function(){ //called on the load to udate th broswr to match the stored student info
   console.log("session ready");

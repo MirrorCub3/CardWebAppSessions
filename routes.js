@@ -101,6 +101,14 @@ console.log("get faillogin");
 	res.json({redirect:"/login"});
 
 });
+router.get("/successcreate", function(req, res) {
+console.log("get successcreate");
+	res.json({redirect:"/sendCreate"});
+});
+router.get("/failcreate", function(req, res) {
+console.log("get failcreate");
+	res.json({redirect:"/login"});
+});
 
 
 
@@ -178,6 +186,29 @@ router.get("/adminInfo",function(req,res){ // called on admin session document.l
     res.json(null);
   }
 });
+router.get("/sendCreate",function(req,res){ // called on admin session document.load
+
+  if (req.isAuthenticated()) {
+console.log("auth in get create" + __dirname);
+let thePath = path.resolve(__dirname,"public/views/create.html");
+res.sendFile(thePath);
+  }
+  else {
+  console.log("fail get create");
+  let thePath = path.resolve(__dirname,"public/views/login.html");
+  res.sendFile(thePath);
+  }
+});
+
+router.get("/create",function(req,res){ // called on admin session document.load
+
+  if (req.isAuthenticated()) {
+return res.redirect("/successcreate");
+  }
+  else {
+  return res.redirect("/failcreate");
+  }
+});
 
 
 
@@ -209,7 +240,7 @@ router.get("/userInfo",function(req,res){// called on document.ready for the ses
       db.getUser(req.user.ident,res); // call to the myDatabse to find this students info
 	}
 	else {
-		res.json(null);
+		res.redirect("/failsignup");
 	}
 });
 
@@ -289,7 +320,7 @@ router.post("/login", passport.authenticate("login", { // if incorect password w
   failureFlash: true
 }));
 
-// 
+//
 // router.post("/creategame", function(req, res) {
 //   console.log(req);
 //   initGameIdent();
