@@ -224,6 +224,8 @@ $(document).ready(function(){
 
       ident =  data.retVal.ident;
       name = data.retVal.name;
+
+      $.(".dropbtn").text(name);
     }
 	});
 });

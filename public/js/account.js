@@ -100,6 +100,7 @@ $(document).ready(function(){ //called on the load to udate th broswr to match t
       ident =  data.retVal.ident;
       name = data.retVal.name;
       $("#name").text("Welcome " + name);
+      $.(".dropbtn").text(name);
       console.log("name =" + name);
 // sets the browser wit the correct info = callback
     }
