@@ -85,7 +85,7 @@ function onChangeInfinite(){
     }
 }
 function accountClicked(){
-  $.get("/account",function (data){
+  $.get("/successlogin",function (data){
       window.location = data.redirect;
   });
 }
