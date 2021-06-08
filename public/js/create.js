@@ -85,7 +85,9 @@ function onChangeInfinite(){
     }
 }
 function accountClicked(){
-  window.location = "/account";
+  $.get("/account",function (data){
+      window.location = data.redirect;
+  });
 }
 function validString(string) {
     let regex =  /^[A-Za-z0-9?!/#@%^$&,"'* ]*[A-Za-z0-9?!/#@%^$&,"'* ]*$/;
