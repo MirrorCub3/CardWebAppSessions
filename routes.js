@@ -186,7 +186,7 @@ router.get("/adminInfo",function(req,res){ // called on admin session document.l
     res.json(null);
   }
 });
-router.get("/sendCreate",function(req,res){ // called on admin session document.load
+router.get("/sendCreate",function(req,res){
 
   if (req.isAuthenticated()) {
 console.log("auth in get create" + __dirname);
@@ -200,7 +200,7 @@ res.sendFile(thePath);
   }
 });
 
-router.get("/create",function(req,res){ // called on admin session document.load
+router.get("/create",function(req,res){
 
   if (req.isAuthenticated()) {
 return res.redirect("/successcreate");

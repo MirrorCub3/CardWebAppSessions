@@ -1,16 +1,16 @@
 module.exports = class Player {
-    constructor(id, username) {
+    constructor(ident, name) {
         this.active = false;
         this.hand = [];
         this.tableHand = [];
-        this.id = parseInt(id);
-        //this.username = username;
+        this.ident = parseInt(ident);
+        this.name = name;
     }
-    defaultState(id){
+    defaultState(ident){
       this.active = false;
       this.hand = [];
       this.tableHand = [];
-      this.id = parseInt(id);
-      //this.username = username;
+      this.ident = parseInt(ident);
+      this.name = name;
     }
 }

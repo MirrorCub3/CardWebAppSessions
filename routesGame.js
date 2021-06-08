@@ -4,6 +4,8 @@ var passport = require("passport");
 
 var User = require("./models/user");
 const GameInfo = require('./models/gameInfo');
+const GameInfoJS = require('./gameInfo');
+
 const GameSettings = require('./models/gameSettings');
 const GameSettingsJS = require('./gameSettings');
 
@@ -54,7 +56,7 @@ function initGameIdent(){ // check everytime a ident is gotten to update it to t
 }
 
 router.post("/creategame", function(req, res) {
-  console.log(req);
+  //console.log(req);
   initGameIdent();
 console.log("post creategame");
 
@@ -77,6 +79,35 @@ console.log("post creategame");
   );
 console.log(newGame);
 return(db.postGame(newGame,res));
+});
+
+router.get("/getGame", function(req, res) {
+console.log("get game");
+    if (req.isAuthenticated()) {
+        return(db.getGame(req.query.ident,res));
+    }
+});
+router.post("/creategameinfo", function(req, res) {
+console.log("post gameinfo");
+    if (req.isAuthenticated()) {
+      var info = new GameInfoJS(
+        req.body.ident,
+        req.body.playerNum,
+        req.body.players,
+        req.body.deck
+      );
+      console.log(info);
+      return(db.postGameInfo(info,res));
+    }
+});
+router.post("/player", function(req, res) {
+console.log("post player");
+    if (req.isAuthenticated()) {
+        //if()
+    }
+    else {
+    return res.redirect("/faillogin");
+    }
 });
 
 module.exports = router;

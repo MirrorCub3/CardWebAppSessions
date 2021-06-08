@@ -8,10 +8,17 @@ var gameInfoSchema = mongoose.Schema({
 		unique: true,
 		type:Number
 	},
-	player: [Object],
+	playerNum: Number,
+	players: {
+		type:[Object],
+		validate: [playerLimit, '{PATH} exceeds the limit of players']
+	},
   deck:Object,
 });
 
+function playerLimit(val) {
+  return val.length < playerNum;
+}
 var GameInfo = mongoose.model("GameInfo", gameInfoSchema);
 
 module.exports = GameInfo;
