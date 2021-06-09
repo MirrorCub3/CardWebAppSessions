@@ -54,5 +54,23 @@ myDatabaseGame.prototype.getGame = function(ident,res) {
 
    });
 }
+myDatabaseGame.prototype.getGameInfo = function(res) {
+  GameSettings.find(function(error,info) { //doing a find on the students id - the unique identifier
+      if (error) {
+          return res.json({retVal:null});
+      }
+      else if (info == null) {
+          return res.json({retVal:null});
+      }
+
+      if (info.length == 1)
+      {
+        return res.json({ retVal: true, game: new GameSettingsJS(ident, info[0].host, info[0].name, info[0].players, info[0].gameActive, info[0].private,info[0].password, info[0].dealAll, info[0].startHand, info[0].jokers, info[0].infinite, info[0].replaceShuffle)});
+      }
+      else
+          return res.json({retVal:null});
+
+   });
+}
 
 module.exports = myDatabaseGame;

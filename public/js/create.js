@@ -49,17 +49,20 @@ function SetGameInfo(){
             }
             else{
             console.log("game info added");
-            // $.get("/getGameInfo",function(data){
-            //     if(!data.retVal){
-            //       return;
-            //     }
-            //     else{
-            //       console.log("found gameInfo");
-            //     }
-            //
-            // });
             }
           });
+}
+function GetGameInfo(){
+  $.get("/getGameInfo",function(data){
+      if(!data.retVal){
+        return;
+      }
+      else{
+        console.log("found gameInfo");
+        console.log(data.info);
+      }
+
+  });
 }
 function onChangeDeal(){
 // check dealType change
