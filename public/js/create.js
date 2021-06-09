@@ -31,7 +31,7 @@ function SetGame(){
                   }
                   else{
                     console.log("found game");
-                    console.log(data.game);
+                    SetGameInfo();
                   }
 
               });
@@ -39,15 +39,25 @@ function SetGame(){
 }
 
 function SetGameInfo(){
-  console.log("In SetGameInfo");
+  console.log("In SetGameInfo " + gameIdent);
+  console.log($("#ShuffleOn").prop("checked"));
 
-  $.post("/creategameinfo",{ident:gameIdent, playerNum:$("#playernum").val(),players:null,deck:null},
+  $.post("/creategameinfo",{ident:gameIdent, playerNum:$("#playernum").val(),hostIdent:ident, hostName:name,replace:$("#ShuffleOn").prop("checked"),jokers:$("#Joker").prop("checked")},
           function(data){
             if(!data.retVal){
               return;
             }
             else{
-            console.log("game info created");
+            console.log("game info added");
+            // $.get("/getGameInfo",function(data){
+            //     if(!data.retVal){
+            //       return;
+            //     }
+            //     else{
+            //       console.log("found gameInfo");
+            //     }
+            //
+            // });
             }
           });
 }

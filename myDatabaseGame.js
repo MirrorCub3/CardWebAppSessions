@@ -23,11 +23,15 @@ myDatabaseGame.prototype.postGame = function(game,res) {
     });
 }
 myDatabaseGame.prototype.postGameInfo = function(gameInfo,res) {
+  console.log("in post game info database");
+  console.log(gameInfo);
     GameInfo.create(gameInfo,function(error,info) {
         if (error) {
+          console.log("error create info");
             return res.json({retVal:false});
         }
-        return res.json({retVal:true,ident:info.ident});
+        console.log("added info");
+        return res.json({retVal:true});
     });
 }
 

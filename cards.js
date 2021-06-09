@@ -1,11 +1,12 @@
 module.exports = class Deck {
-    constructor(jokerCheck = false) {
+    constructor(shuffle = false, jokerCheck = false) {
         this.deck = [];
         this.deck.length = 0;
         this.discard = [];
         this.discard.length = 0;
         this.imageId = 0;
-        this.shuffleOnReplace = false;
+
+        this.shuffleOnReplace = shuffle;
         this.drawActive = false;
         this.joker = jokerCheck;
         this.drawDiscardActive = false;
