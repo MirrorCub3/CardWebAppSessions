@@ -7,7 +7,5 @@ let GameInfoJS = function(ident,playerNum = 1, players = [], deck = new Deck()) 
 	this.players = players;
   this.deck = deck;
 }
-CutExtraPlayers(){
-}
 
 module.exports = GameInfoJS;
