@@ -47,6 +47,7 @@ function initGameIdent(){ // check everytime a ident is gotten to update it to t
   {
     GameSettings.find({},function(err,game) { // doe a find and lookss through all users ids
       if (!err) {
+        console.log("existing games");
         let objs = [];
         for (let i=0;i<game.length;i++) {
           if (gameIdent < game[i].ident)
@@ -55,7 +56,6 @@ function initGameIdent(){ // check everytime a ident is gotten to update it to t
         console.log("in it game ident " + gameIdent);
       }
     });
-//    ident = 3;   //this was temp to check if User.find above is an issue.
   }
 }
 
@@ -65,7 +65,7 @@ router.post("/creategame", function(req, res) {
 console.log("post creategame");
 
   gameIdent++; // plus one to ident = notice how the id is already ++ even though it hasn't passes the find null check yet - try moving this below the return line and see if it causes issues
-
+console.log("routes game ident " + gameIdent);
   var newGame = new GameSettingsJS(
     gameIdent,
     req.body.hostName,
@@ -112,7 +112,8 @@ console.log("post gameinfo");
         deck
       );
       allGameInfos.push(info);
-      console.log(allGameInfos[allGameInfos.length -1].deck.deck);
+      console.log(allGameInfos);
+      //return(db.postGameInfo(allGameInfos,res));
       return res.json({retVal:true});
     }
     return res.json({retVal:false});

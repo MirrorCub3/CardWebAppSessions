@@ -23,6 +23,8 @@ function SetGame(){
   $.post("/creategame",{hostName:name, name:$("#name").val(), players:$("#playernum").val(), gameActive: true, private:$("#Private").prop('checked'),
           password:$("#psw").val(),dealAll:all, startHand:$("#hand").val(), jokers:$("#Joker").prop("checked"), infinite:$("#Infinite").prop("checked"),replace:$("#ShuffleOn").prop("checked")},
           function(data){
+            // if(!data.retVal)
+            // return;
               console.log("game ident:" + data.ident);
               gameIdent = data.ident;
               $.get("/getGame",{ident:gameIdent},function(data){
@@ -47,10 +49,24 @@ function SetGameInfo(){
               return;
             }
             else{
-            console.log("game info added");
+            console.log("game info added, ready to begin game");
             }
           });
 }
+// function GetGameInfo(){
+//   console.log("In GetGameInfo ");
+//
+//   $.get("/getGameInfo",function(data){
+//             if(!data.retVal){
+//               return;
+//             }
+//             else{
+//             console.log("game info found");
+//             console.log(data.info);
+//             }
+//           });
+// }
+
 
 function onChangeDeal(){
 // check dealType change

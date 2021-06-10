@@ -14,11 +14,12 @@ let myDatabaseGame = function() {
 }
 
 myDatabaseGame.prototype.postGame = function(game,res) {
-  console.log(" host name = " + game.host);
+  console.log(" host name = " + game.ident);
     GameSettings.create(game,function(error,info) {
         if (error) {
             return res.json({retVal:false});
         }
+        console.log("database post game, info ident "+ info.ident);
         return res.json({retVal:true,ident:info.ident});
     });
 }
@@ -54,5 +55,21 @@ myDatabaseGame.prototype.getGame = function(ident,res) {
 
    });
 }
+// myDatabaseGame.prototype.getGameInfo = function(res) {
+//   GameInfo.find({},function(error,info) { //doing a find on the students id - the unique identifier
+//       if (error) {
+//         console.log("error finding info");
+//           return res.json({retVal:null});
+//       }
+//       else if (info == null) {
+//         console.log("no info");
+//           return res.json({retVal:null});
+//       }
+//       console.log("database found info");
+//       return res.json({ retVal: true, info: info});
+//
+//
+//    });
+// }
 
 module.exports = myDatabaseGame;
