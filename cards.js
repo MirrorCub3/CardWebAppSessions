@@ -9,6 +9,8 @@ module.exports = class Deck {
         this.shuffleOnReplace = shuffle;
         this.drawActive = false;
         this.joker = jokerCheck;
+        console.log('this.joker');
+        console.log(this.joker);
         this.drawDiscardActive = false;
         const suites = ['Hearts', 'Spades', 'Clubs', 'Diamonds'];
         const values = ['Ace', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'Jack', 'Queen', 'King'];
@@ -85,7 +87,9 @@ module.exports = class Deck {
                 this.imageId++;
             }
         }
-        if(this.joker == true){
+        console.log("right before joker");
+        if(this.joker == 'true'){
+          console.log("making jokers true");
             this.deck.push(new Card("Joker","JokerBlack","/views/joker_black.png"));
             this.deck.push(new Card("Joker","JokerRed","/views/joker_red.png"));
         }

@@ -91,10 +91,16 @@ console.log("get game");
         return(db.getGame(req.query.ident,res));
     }
 });
+router.get("/getGameInfo", function(req, res) {
+console.log("get gameinfo");
+    if (req.isAuthenticated()) {
+        return(db.getGameInfo(res));
+    }
+});
 router.post("/creategameinfo", function(req, res) {
 console.log("post gameinfo");
     if (req.isAuthenticated()) {
-      let deck = new Deck(req.body.jokers);
+      let deck = new Deck(req.body.replace,req.body.jokers);
 
       let players = [];
       players.length = req.body.playerNum;
@@ -103,11 +109,13 @@ console.log("post gameinfo");
         req.body.ident,
         req.body.playerNum,
         players,
-        new Deck(req.body.replace,req.body.jokers)
+        deck
       );
       allGameInfos.push(info);
-      return(db.postGameInfo(allGameInfos,res));
+      console.log(allGameInfos[allGameInfos.length -1].deck.deck);
+      return res.json({retVal:true});
     }
+    return res.json({retVal:false});
 });
 router.post("/player", function(req, res) {
 console.log("post player");

@@ -40,7 +40,6 @@ function SetGame(){
 
 function SetGameInfo(){
   console.log("In SetGameInfo " + gameIdent);
-  console.log($("#ShuffleOn").prop("checked"));
 
   $.post("/creategameinfo",{ident:gameIdent, playerNum:$("#playernum").val(),hostIdent:ident, hostName:name,replace:$("#ShuffleOn").prop("checked"),jokers:$("#Joker").prop("checked")},
           function(data){
@@ -52,18 +51,7 @@ function SetGameInfo(){
             }
           });
 }
-function GetGameInfo(){
-  $.get("/getGameInfo",function(data){
-      if(!data.retVal){
-        return;
-      }
-      else{
-        console.log("found gameInfo");
-        console.log(data.info);
-      }
 
-  });
-}
 function onChangeDeal(){
 // check dealType change
      if($("#deal").val() != "StartingHand"){
