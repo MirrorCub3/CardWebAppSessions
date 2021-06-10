@@ -10,21 +10,24 @@
     <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
   </head>
 
-<div class="navbar">
-      <div class="dropdown">
-        <button class="dropbtn">Username
-            <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-content">
-            <a href="#">My Account</a>
-            <a id = "logoutButton" onclick="logoutClicked()">Log Out</a>
-        </div>
-      </div>
-      <a onclick="getCreate()">Create</a>
-      <a href="./join.html">Join</a>
-</div>
 
 <body>
+
+  <div class="navbar">
+        <div class="dropdown" style="float:right;" >
+          <button class="dropbtn">Username
+              <i class="fa fa-caret-down"></i>
+          </button>
+
+          <div class="dropdown-content">
+              <a href="#">My Account</a>
+              <br>
+              <a id = "logoutButton" onclick="logoutClicked()">Log Out</a>
+          </div>
+        </div>
+        <a onclick="getCreate()">Create</a>
+        <a href="./join.html">Join</a>
+  </div>
     <div class="center">
         <img src="https://th.bing.com/th/id/OIP.2z0R3slgX06PHxj0dEZIiQHaHa?pid=ImgDet&rs=1" alt="Avatar" class="avatar">
         <br>
