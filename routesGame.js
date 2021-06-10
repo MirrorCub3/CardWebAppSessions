@@ -61,11 +61,11 @@ function initGameIdent(){ // check everytime a ident is gotten to update it to t
 
 router.post("/creategame", function(req, res) {
   //console.log(req);
-  initGameIdent();
 console.log("post creategame");
-
+console.log("routes game ident before" + gameIdent);
+  initGameIdent(); // put a promise here
   gameIdent++; // plus one to ident = notice how the id is already ++ even though it hasn't passes the find null check yet - try moving this below the return line and see if it causes issues
-console.log("routes game ident " + gameIdent);
+console.log("routes game ident after" + gameIdent);
   var newGame = new GameSettingsJS(
     gameIdent,
     req.body.hostName,
@@ -112,7 +112,6 @@ console.log("post gameinfo");
         deck
       );
       allGameInfos.push(info);
-      console.log(allGameInfos);
       //return(db.postGameInfo(allGameInfos,res));
       return res.json({retVal:true});
     }
