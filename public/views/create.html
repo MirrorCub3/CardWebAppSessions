@@ -11,12 +11,13 @@
 
     <body>
       <div class="navbar">
-            <div class="dropdown">
+            <div class="dropdown" style="float:right;" >
               <button class="dropbtn">Username
                   <i class="fa fa-caret-down"></i>
               </button>
               <div class="dropdown-content">
                   <a onclick= "accountClicked()">My Account</a>
+                        <br>
                   <a id = "logoutButton" onclick="logoutClicked()">Log Out</a>
               </div>
             </div>
@@ -74,7 +75,8 @@
         <br>
         <section id="submit" >
             <input type="reset" name="reset" value="Reset">
-            <input id = "GameButton" type="button" value="Create Game" onclick="SetGame()">
+            <input id = "GameButton" type="button" value="Create Game" title= "Start New Game - This Will Clear Any Previous Game History" onClick="SetGame()">
+            <label id = "openGame" for = "GameButton" onclick='return false;'> </label>
             <!--<input id = "end" type="button" value="End Game" title= "End the Current Running Game">-->
         </section>
         </form>
