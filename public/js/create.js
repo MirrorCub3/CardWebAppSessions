@@ -1,5 +1,6 @@
 var ident = 0;
 var name = "";
+var gameIdent = 0;
 
 const deckClassic = 52;
 const deckJoker = 54;
@@ -18,13 +19,39 @@ function SetGame(){
   if($("#deal").val() == "DealAll"){
       all = true;
   }
-  console.log( name + " " + $("#name").val() + " " + $("#playernum").val()+ " " +$("#Private").prop('checked') + " " + $("#psw").val() + " " + all + " " + $("#hand").val()+ " " + $("#Joker").prop("checked") + " " + $("#Infinite").prop("checked") + " " +$("#ShuffleOn").prop("checked") );
+  // console.log( name + " " + $("#name").val() + " " + $("#playernum").val()+ " " +$("#Private").prop('checked') + " " + $("#psw").val() + " " + all + " " + $("#hand").val()+ " " + $("#Joker").prop("checked") + " " + $("#Infinite").prop("checked") + " " +$("#ShuffleOn").prop("checked") );
   $.post("/creategame",{hostName:name, name:$("#name").val(), players:$("#playernum").val(), gameActive: true, private:$("#Private").prop('checked'),
           password:$("#psw").val(),dealAll:all, startHand:$("#hand").val(), jokers:$("#Joker").prop("checked"), infinite:$("#Infinite").prop("checked"),replace:$("#ShuffleOn").prop("checked")},
           function(data){
-              window.redirect = "/views/player.html";
+              console.log("game ident:" + data.ident);
+              gameIdent = data.ident;
+              $.get("/getGame",{ident:gameIdent},function(data){
+                  if(!data.retVal){
+                    return;
+                  }
+                  else{
+                    console.log("found game");
+                    SetGameInfo();
+                  }
+
+              });
           });
 }
+
+function SetGameInfo(){
+  console.log("In SetGameInfo " + gameIdent);
+
+  $.post("/creategameinfo",{ident:gameIdent, playerNum:$("#playernum").val(),hostIdent:ident, hostName:name,replace:$("#ShuffleOn").prop("checked"),jokers:$("#Joker").prop("checked")},
+          function(data){
+            if(!data.retVal){
+              return;
+            }
+            else{
+            console.log("game info added");
+            }
+          });
+}
+
 function onChangeDeal(){
 // check dealType change
      if($("#deal").val() != "StartingHand"){

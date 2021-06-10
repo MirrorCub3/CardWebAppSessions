@@ -3,9 +3,15 @@ var express = require("express");
 var passport = require("passport");
 
 var User = require("./models/user");
-const GameInfo = require('./models/gameInfo');
+//const GameInfo = require('./models/gameInfo');
+const GameInfoJS = require('./gameInfo');
+
 const GameSettings = require('./models/gameSettings');
 const GameSettingsJS = require('./gameSettings');
+
+const Deck = require("./cards.js");
+const Player = require("./Player.js");
+var allGameInfos = [];
 
 var router = express.Router();
 var bcrypt = require("bcrypt-nodejs");
@@ -54,7 +60,7 @@ function initGameIdent(){ // check everytime a ident is gotten to update it to t
 }
 
 router.post("/creategame", function(req, res) {
-  console.log(req);
+  //console.log(req);
   initGameIdent();
 console.log("post creategame");
 
@@ -77,6 +83,48 @@ console.log("post creategame");
   );
 console.log(newGame);
 return(db.postGame(newGame,res));
+});
+
+router.get("/getGame", function(req, res) {
+console.log("get game");
+    if (req.isAuthenticated()) {
+        return(db.getGame(req.query.ident,res));
+    }
+});
+router.get("/getGameInfo", function(req, res) {
+console.log("get gameinfo");
+    if (req.isAuthenticated()) {
+        return(db.getGameInfo(res));
+    }
+});
+router.post("/creategameinfo", function(req, res) {
+console.log("post gameinfo");
+    if (req.isAuthenticated()) {
+      let deck = new Deck(req.body.replace,req.body.jokers);
+
+      let players = [];
+      players.length = req.body.playerNum;
+      players[0] = new Player(req.body.hostIdent, req.body.hostName);
+      var info = new GameInfoJS(
+        req.body.ident,
+        req.body.playerNum,
+        players,
+        deck
+      );
+      allGameInfos.push(info);
+      console.log(allGameInfos[allGameInfos.length -1].deck.deck);
+      return res.json({retVal:true});
+    }
+    return res.json({retVal:false});
+});
+router.post("/player", function(req, res) {
+console.log("post player");
+    if (req.isAuthenticated()) {
+        //if()
+    }
+    else {
+    return res.redirect("/faillogin");
+    }
 });
 
 module.exports = router;
