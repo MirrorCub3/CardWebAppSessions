@@ -109,6 +109,14 @@ router.get("/failcreate", function(req, res) {
 console.log("get failcreate");
 	res.json({redirect:"/login"});
 });
+router.get("/successplayer", function(req, res) {
+console.log("get successplayer");
+	res.json({redirect:"/player"});
+});
+router.get("/failplayer", function(req, res) {
+console.log("get failplayer");
+	res.json({redirect:"/login"});
+});
 
 
 

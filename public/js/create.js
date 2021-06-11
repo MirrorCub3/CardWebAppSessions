@@ -42,7 +42,6 @@ function SetGame(){
 
 function SetGameInfo(){
   console.log("In SetGameInfo " + gameIdent);
-
   $.post("/creategameinfo",{ident:gameIdent, playerNum:$("#playernum").val(),hostIdent:ident, hostName:name,replace:$("#ShuffleOn").prop("checked"),jokers:$("#Joker").prop("checked")},
           function(data){
             if(!data.retVal){
@@ -50,8 +49,15 @@ function SetGameInfo(){
             }
             else{
             console.log("game info added, ready to begin game");
+            getPlayer();
             }
           });
+}
+function getPlayer(){
+  $.get("/getPlayer",{ident:ident, gameIdent: gameIdent},
+      function(data){
+          window.location = data.redirect;
+  });
 }
 // function GetGameInfo(){
 //   console.log("In GetGameInfo ");

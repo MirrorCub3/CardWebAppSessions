@@ -1,7 +1,4 @@
 // client js
-var  gameIdent = 0;
-let consoleUp = true;
-
 let myHand = [];
 let id = 1;
 let realId = 0;
@@ -25,19 +22,6 @@ $("#sendMessage").keypress(function(event) { // allows enter key to send message
     document.getElementById("sendButton").click();
   }
 });
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-function ConsoleButton(){
-  if(consoleUp == true){
-    $("#box").slideUp();
-    consoleUp = false;
-    $("#consoleButton").val("show");
-  }
-  else{
-    $("#box").slideDown();
-    consoleUp = true;
-    $("#consoleButton").val("hide");
-  }
-}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 function DrawCard(){
     $.get("/drawcard", {num:1,id:realId},function(data){
@@ -296,6 +280,8 @@ function successinfo(data){
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 $(document).ready(function(){
+    $("#DiscardToMain").click(discardToMain);
+    $("#Shuffle").click(ShuffleMain);
     //console.log("player ready");
     //$.get("/player2", {index:1,id:id},successinfo);
     $.get("/player2",successinfo);
@@ -731,3 +717,19 @@ context.restore();
    }
 ////////////////////////////////////////////////////////
 }
+function UpdateGame(){
+    $.post("/update", {name:$("#name").val()},success);
+}
+function discardToMain(){
+    $.post("/discardtomain",null);
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+function ShuffleMain(){
+    $.post("/shuffle",null);
+}
+check();
+            function check() {
+                $.get("/indexCheck",{playernum:parseInt($("#playernum").val()),joker:$("#Joker").prop("checked")}, checkSuccess);
+                let numMilliSeconds = 250;
+                setTimeout(check, numMilliSeconds);
+            }

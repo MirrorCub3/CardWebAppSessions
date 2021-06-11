@@ -41,47 +41,79 @@ const myDatabaseGame = require('./myDatabaseGame');
 let db = new myDatabaseGame();
 
 var gameIdent = 0;
-
-function initGameIdent(){ // check everytime a ident is gotten to update it to the largest value
-  if (gameIdent == 0)
-  {
-    GameSettings.find({},function(err,game) { // doe a find and lookss through all users ids
-      if (!err) {
-        console.log("existing games");
-        let objs = [];
-        for (let i=0;i<game.length;i++) {
-          if (gameIdent < game[i].ident)
-            gameIdent = game[i].ident;
-        }
-        console.log("in it game ident " + gameIdent);
-      }
-    });
-  }
+function initGameIdent(){
+  // two function pointers: if the code works good, then it runs resolve, the identbook changing code below.
+// if there is a problem, then we use the reject function call
+  return new Promise(function(resolve,reject) { // an instance of a promise, putting the code we want to happen first inside that promise
+		if (gameIdent == 0) {
+			GameSettings.find({},function(err,game) { // without promise this allback will be called too late
+				console.log("BookModel.find()");
+				if (err) {
+					reject(err); // reject if bad
+				}
+				else {
+          console.log("existing games");
+          let objs = [];
+          for (let i=0;i<game.length;i++) {
+            if (gameIdent < game[i].ident)
+              gameIdent = game[i].ident;
+          }
+					resolve(gameIdent); // calls the resove function with  the new identbook
+				}
+			});
+		}
+    else {
+			resolve(gameIdent); // calls the resove function with  the new identbook
+		}
+	});
 }
+// function initGameIdent(){ // check everytime a ident is gotten to update it to the largest value
+//   if (gameIdent == 0)
+//   {
+//     GameSettings.find({},function(err,game) { // doe a find and lookss through all users ids
+//       if (!err) {
+//         console.log("existing games");
+//         let objs = [];
+//         for (let i=0;i<game.length;i++) {
+//           if (gameIdent < game[i].ident)
+//             gameIdent = game[i].ident;
+//         }
+//         console.log("in it game ident " + gameIdent);
+//       }
+//     });
+//   }
+// }
 
 router.post("/creategame", function(req, res) {
   //console.log(req);
 console.log("post creategame");
-  initGameIdent();
-  gameIdent++; // plus one to ident = notice how the id is already ++ even though it hasn't passes the find null check yet - try moving this below the return line and see if it causes issues
-console.log("routes game ident after" + gameIdent);
-  var newGame = new GameSettingsJS(
-    gameIdent,
-    req.body.hostName,
-    req.body.name,
-    req.body.players,
-    req.body.gameActive,
-    req.body.private,
-  	req.body.password,
+  var Prom1 = initGameIdent();
+  Prom1.then(
+    function(result) { // the good function
+      gameIdent++; // plus one to ident = notice how the id is already ++ even though it hasn't passes the find null check yet - try moving this below the return line and see if it causes issues
+      var newGame = new GameSettingsJS(
+        gameIdent,
+        req.body.hostName,
+        req.body.name,
+        req.body.players,
+        req.body.gameActive,
+        req.body.private,
+        req.body.password,
 
-    req.body.dealAll,
-    req.body.startHand,
-  	req.body.jokers,
-  	req.body.infinite,
-  	req.body.replace,
+        req.body.dealAll,
+        req.body.startHand,
+        req.body.jokers,
+        req.body.infinite,
+        req.body.replace,
+      );
+    console.log(newGame);
+    return(db.postGame(newGame,res));
+    },
+    function(err) { // the reject function
+        console.log("error");
+        res.json({retVal:null});
+    }
   );
-console.log(newGame);
-return(db.postGame(newGame,res));
 });
 
 router.get("/getGame", function(req, res) {
@@ -93,7 +125,7 @@ console.log("get game");
 router.get("/getGameInfo", function(req, res) {
 console.log("get gameinfo");
     if (req.isAuthenticated()) {
-        return(db.getGameInfo(res));
+        //code here to loop through all info and find the game
     }
 });
 router.post("/creategameinfo", function(req, res) {
@@ -116,14 +148,36 @@ console.log("post gameinfo");
     }
     return res.json({retVal:false});
 });
-router.post("/player", function(req, res) {
-console.log("post player");
-    if (req.isAuthenticated()) {
-        //if()
-    }
-    else {
-    return res.redirect("/faillogin");
-    }
+router.get("/successplayer", function(req, res) {
+console.log("get successplayer");
+	res.json({redirect:"/player"});
+});
+router.get("/failplayer", function(req, res) {
+console.log("get failplayer");
+	res.json({redirect:"/login"});
+});
+
+router.get("/getPlayer", function(req, res) {
+console.log("get getplayer");
+if (req.isAuthenticated()) {
+return res.redirect("/successplayer");
+}
+else {
+return res.redirect("/failplayer");
+}
+});
+router.get("/player", function (req,res){
+  console.log("get player");
+  if (req.isAuthenticated()) {
+    console.log("success get player");
+    let thePath = path.resolve(__dirname,"public/views/player.html");
+    res.sendFile(thePath);
+  }
+  else {
+    console.log("fail get create");
+    let thePath = path.resolve(__dirname,"public/views/login.html");
+    res.sendFile(thePath);
+  }
 });
 
 module.exports = router;

@@ -3,22 +3,18 @@
   <head>
     <meta charset="utf-8">
     <title>PLAYER</title>
-
     <link rel="icon" type="image/png" href="/views/PNG/AS.png">
     <link rel="stylesheet" href="/views/altPlayer.css">
     <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
   </head>
   <body>
-    <!--<header>
+    <header>
       <h1 id = "playerId">PLAYER</h1>
       <h3 id = "gameName">Virtual Cards</h3>
-    </header> -->
-      <canvas id="canvas"> Your browser does not support HTML5 Canvas.</canvas><!-- style="position:absolute; "-->
-      <section>
-        <input id = "consoleButton" type= "button" value="hide" onclick="ConsoleButton()"> <br><br>
-        <!--<input id="ConsoleDown" type= "button" value="ConsoleDown" onclick="ConsoleDown()">
-        <input id="ConsoleUp" type= "button" value="ConsoleUp" onclick="ConsoleUp()">-->
-      <div id="box">
+    </header>
+      <canvas id="canvas"  style="position:absolute; "> Your browser does not support HTML5 Canvas.</canvas>
+      <section id="box">
+      <div>
           <label>Username:</label>
           <input id="nameset" type="text" maxlength="25">
           <br>
@@ -47,8 +43,13 @@
             <input id="shiftLeft" type= "button" value=" < Shift Left" title= "Shift Hand To The Left" onClick = "shiftLeft()" >
             <input id="shiftRight" type= "button" value=" Shift Right > " title= "Shift Hand To The Right" onClick = "shiftRight()" >
           </div>
+          <hr>
+          <div id = "adminButtons">
+            <input id = "DiscardToMain" type="button" disabled value="Discard To Main" title= "Return Discards To Main" >
+            <input id = "Shuffle" type="button" disabled value="Shuffle Main">
+          </div>
       </div>
     </section>
-      <script src="../js/player.js"></script>
+      <script src="../js/playeron3.js"></script>
   </body>
 </html>
