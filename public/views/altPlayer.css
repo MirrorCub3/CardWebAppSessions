@@ -51,7 +51,7 @@ div {
 
 section{
     position: fixed;
-    bottom: 10px;
+    top: 10px;
     border:#cc0000 5px outset;
     color:whitesmoke;
     float: left;
