@@ -280,11 +280,11 @@ function successinfo(data){
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 $(document).ready(function(){
-    $("#DiscardToMain").click(discardToMain);
-    $("#Shuffle").click(ShuffleMain);
+    // $("#DiscardToMain").click(discardToMain);
+    // $("#Shuffle").click(ShuffleMain);
     //console.log("player ready");
     //$.get("/player2", {index:1,id:id},successinfo);
-    $.get("/player2",successinfo);
+    //$.get("/player2",successinfo);
 });
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 window.addEventListener('beforeunload',function () {
@@ -724,12 +724,12 @@ function discardToMain(){
     $.post("/discardtomain",null);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-function ShuffleMain(){
-    $.post("/shuffle",null);
-}
-check();
-            function check() {
-                $.get("/indexCheck",{playernum:parseInt($("#playernum").val()),joker:$("#Joker").prop("checked")}, checkSuccess);
-                let numMilliSeconds = 250;
-                setTimeout(check, numMilliSeconds);
-            }
+// function ShuffleMain(){
+//     $.post("/shuffle",null);
+// }
+// check();
+//             function check() {
+//                 $.get("/indexCheck",{playernum:parseInt($("#playernum").val()),joker:$("#Joker").prop("checked")}, checkSuccess);
+//                 let numMilliSeconds = 250;
+//                 setTimeout(check, numMilliSeconds);
+// }

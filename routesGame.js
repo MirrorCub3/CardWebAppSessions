@@ -143,6 +143,7 @@ console.log("post gameinfo");
         deck
       );
       allGameInfos.push(info);
+      console.log(allGameInfos);
       //return(db.postGameInfo(allGameInfos,res));
       return res.json({retVal:true});
     }
@@ -157,9 +158,22 @@ console.log("get failplayer");
 	res.json({redirect:"/login"});
 });
 
-router.get("/getPlayer", function(req, res) {
-console.log("get getplayer");
+router.post("/postPlayer", function(req, res) {
+console.log("post postPlayer");
 if (req.isAuthenticated()) {
+  ////check if this is player 1
+for (var i = 0; i < allGameInfos.length; i++) {
+    if(allGameInfos[i].ident == req.body.gameIdent){
+        if(allGameInfos[i].players[0].ident == req.body.ident){
+          console.log("player one post request");
+        }
+        else{
+          console.log("bacic player post request");
+          allGameInfos[i].ident.players.push(new Player(req.body.ident, req.body.name));
+        }
+        console.log(allGameInfos[i].players);
+    }
+  }
 return res.redirect("/successplayer");
 }
 else {
@@ -170,6 +184,18 @@ router.get("/player", function (req,res){
   console.log("get player");
   if (req.isAuthenticated()) {
     console.log("success get player");
+    for (var i = 0; i < allGameInfos.length; i++) {
+        if(allGameInfos[i].players[0].name == req.user.username){
+          console.log("send player 1 html");
+          let thePath = path.resolve(__dirname,"public/views/playerone.html");
+          res.sendFile(thePath);
+        }
+        else{
+          console.log("send player basic html");
+          let thePath = path.resolve(__dirname,"public/views/player.html");
+          res.sendFile(thePath);
+        }
+      }
     let thePath = path.resolve(__dirname,"public/views/player.html");
     res.sendFile(thePath);
   }

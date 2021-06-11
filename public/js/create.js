@@ -54,7 +54,7 @@ function SetGameInfo(){
           });
 }
 function getPlayer(){
-  $.get("/getPlayer",{ident:ident, gameIdent: gameIdent},
+  $.post("/postPlayer",{ident:ident, name:name, gameIdent: gameIdent},
       function(data){
           window.location = data.redirect;
   });
