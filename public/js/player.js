@@ -298,7 +298,7 @@ function successinfo(data){
 $(document).ready(function(){
     //console.log("player ready");
     //$.get("/player2", {index:1,id:id},successinfo);
-    $.get("/player2",successinfo);
+  //  $.get("/player2",successinfo);
 });
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 window.addEventListener('beforeunload',function () {

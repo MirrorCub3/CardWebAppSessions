@@ -135,7 +135,7 @@ console.log("post gameinfo");
 
       let players = [];
       players.length = req.body.playerNum;
-      players[0] = new Player(req.body.hostIdent, req.body.hostName);
+      players[0] = new Player(req.body.hostIdent, req.body.hostName, req.body.ident);
       var info = new GameInfoJS(
         req.body.ident,
         req.body.playerNum,
@@ -169,7 +169,14 @@ for (var i = 0; i < allGameInfos.length; i++) {
         }
         else{
           console.log("bacic player post request");
-          allGameInfos[i].ident.players.push(new Player(req.body.ident, req.body.name));
+          for (var x = 0; x < allGameInfos[i].players.length; x++) {
+            if(!allGameInfos[i].players[x]){
+              console.log("empty player index " + x);
+              allGameInfos[i].players[x] = new Player(req.body.ident, req.body.name,req.body.gameIdent);
+              break;
+            }
+          }
+          //allGameInfos[i].players.push(new Player(req.body.ident, req.body.name));
         }
         console.log(allGameInfos[i].players);
     }
@@ -185,7 +192,7 @@ router.get("/player", function (req,res){
   if (req.isAuthenticated()) {
     console.log("success get player");
     for (var i = 0; i < allGameInfos.length; i++) {
-        if(allGameInfos[i].players[0].name == req.user.username){
+        if(allGameInfos[i].players[0].ident == req.user.ident){
           console.log("send player 1 html");
           let thePath = path.resolve(__dirname,"public/views/playerone.html");
           res.sendFile(thePath);
@@ -196,8 +203,6 @@ router.get("/player", function (req,res){
           res.sendFile(thePath);
         }
       }
-    let thePath = path.resolve(__dirname,"public/views/player.html");
-    res.sendFile(thePath);
   }
   else {
     console.log("fail get create");
