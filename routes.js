@@ -70,6 +70,19 @@ function initGameIdent(){ // check everytime a ident is gotten to update it to t
   }
 }
 
+
+
+router.get("/successsendtogame", function(req, res) {
+  console.log("get successsendtogame");
+        res.json({redirect:"/*game id number*/"});
+  });
+  
+  router.get("/failsendtogame", function(req, res) {
+  console.log("get failsendtogame");
+    res.json({redirect:"/join"});
+  
+  });
+
 router.get("/getGameList", function(req,res,next){
   return(db.getGameList(req.user.ident,res));
 //	return(db.getStudent(req.user.ident,res));
