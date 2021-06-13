@@ -34,7 +34,21 @@ function logoutClicked(){ //logout function
 	});
 	return false;
 }
+$(document).ready(function(){
+  console.log("ready");
+  $.get("/userInfo",function(data){ // gets the values stored in the database
+      console.log("in userInfo");
+		if (data.retVal.name) {
+      console.log(data.retVal.name);
+      console.log(data.retVal.ident);
 
+      ident =  data.retVal.ident;
+      name = data.retVal.name;
+
+      $(".dropbtn").text(name);
+    }
+	});
+});
 //$( document ).ready(function() {
   //  $("#messages").append('<li>' + GameSettings.id + '</li>');
  //   function loadGames(){
