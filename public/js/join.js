@@ -28,7 +28,7 @@ function accountClicked(){
   });
 }
 
-$( document ).ready(function() {
+//$( document ).ready(function() {
   //  $("#messages").append('<li>' + GameSettings.id + '</li>');
  //   function loadGames(){
  // $.ajax({
@@ -59,4 +59,4 @@ $( document ).ready(function() {
 //   {
 //     window.location = data.redirect;
 //   });}
-}
+//}
