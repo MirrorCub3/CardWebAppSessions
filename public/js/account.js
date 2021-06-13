@@ -90,6 +90,11 @@ function joinClicked(){
       window.location = data.redirect;
   });
 }
+function accountClicked(){
+  $.get("/successlogin",function (data){
+      window.location = data.redirect;
+  });
+}
 $(document).ready(function(){ //called on the load to udate th broswr to match the stored student info
   console.log("session ready");
 //  $("#createButton").click(createClicked);

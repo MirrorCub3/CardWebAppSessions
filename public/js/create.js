@@ -133,14 +133,20 @@ function onChangeInfinite(){
        $("#shuffleDiv").remove();
     }
 }
-function accountClicked(){
-  $.get("/successlogin",function (data){
+function getCreate(){
+  $.get("/getCreate",function (data){
+    console.log('data redirect: ' + data.redirect);
       window.location = data.redirect;
   });
 }
 function joinClicked(){
   $.get("/getJoin",function (data){
     console.log('data redirect: ' + data.redirect);
+      window.location = data.redirect;
+  });
+}
+function accountClicked(){
+  $.get("/successlogin",function (data){
       window.location = data.redirect;
   });
 }
