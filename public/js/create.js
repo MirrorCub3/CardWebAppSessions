@@ -138,6 +138,12 @@ function accountClicked(){
       window.location = data.redirect;
   });
 }
+function joinClicked(){
+  $.get("/getJoin",function (data){
+    console.log('data redirect: ' + data.redirect);
+      window.location = data.redirect;
+  });
+}
 function validString(string) {
     let regex =  /^[A-Za-z0-9?!/#@%^$&,"'* ]*[A-Za-z0-9?!/#@%^$&,"'* ]*$/;
     let  validString = regex.test(string);

@@ -84,6 +84,34 @@ function initGameIdent(){
 //   }
 // }
 
+// router.get("/successsendtogame", function(req, res) {
+//   console.log("get successsendtogame");
+//         res.json({redirect:"/*game id number*/"});
+//   });
+//
+//   router.get("/failsendtogame", function(req, res) {
+//   console.log("get failsendtogame");
+//     res.json({redirect:"/join"});
+//
+//   });
+
+router.get("/getGameList", function(req,res,next){
+  return(db.getGameList(req.user.ident,res));
+//	return(db.getStudent(req.user.ident,res));
+});
+router.get("/getGame", function(req, res) {
+console.log("get game");
+    if (req.isAuthenticated()) {
+        return(db.getGame(req.query.ident,res));
+    }
+});
+router.get("/getGameInfo", function(req, res) {
+console.log("get gameinfo");
+    if (req.isAuthenticated()) {
+        //code here to loop through all info and find the game
+    }
+});
+
 router.post("/creategame", function(req, res) {
   //console.log(req);
 console.log("post creategame");
@@ -116,18 +144,6 @@ console.log("post creategame");
   );
 });
 
-router.get("/getGame", function(req, res) {
-console.log("get game");
-    if (req.isAuthenticated()) {
-        return(db.getGame(req.query.ident,res));
-    }
-});
-router.get("/getGameInfo", function(req, res) {
-console.log("get gameinfo");
-    if (req.isAuthenticated()) {
-        //code here to loop through all info and find the game
-    }
-});
 router.post("/creategameinfo", function(req, res) {
 console.log("post gameinfo");
     if (req.isAuthenticated()) {
