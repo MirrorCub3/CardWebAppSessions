@@ -27,6 +27,13 @@ function accountClicked(){
       window.location = data.redirect;
   });
 }
+function logoutClicked(){ //logout function
+  console.log("log out");
+	$.get("/logout",function(data){ // in routes
+		window.location = data.redirect;
+	});
+	return false;
+}
 
 //$( document ).ready(function() {
   //  $("#messages").append('<li>' + GameSettings.id + '</li>');
