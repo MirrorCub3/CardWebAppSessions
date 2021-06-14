@@ -1,7 +1,7 @@
-let UserJS = function(name,ident,playing) {
+let UserJS = function(name,ident,gameIdent) {
 	this.ident = ident;
 	this.name = name;
-	this.playing = playing;
+	this.gameIdent = gameIdent;
 }
 
 module.exports = UserJS;

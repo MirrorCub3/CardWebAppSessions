@@ -13,6 +13,7 @@ const GameSettingsJS = require('./gameSettings');
 const Deck = require("./cards.js");
 const Player = require("./Player.js");
 var allGameInfos = [];
+var allUserPlayerInfo = [];
 
 var router = express.Router();
 var bcrypt = require("bcrypt-nodejs");
@@ -153,6 +154,8 @@ console.log("post gameinfo");
       let players = [];
       players.length = req.body.playerNum;
       players[0] = new Player(req.user.ident, req.user.username,req.body.ident);
+      let obj = new UserJS(req.user.ident, req.user.username,req.body.ident);
+      allUserPlayerInfo.push(obj);
       var info = new GameInfoJS(
         req.body.ident,
         req.body.playerNum,
@@ -161,6 +164,7 @@ console.log("post gameinfo");
       );
       allGameInfos.push(info);
       console.log(allGameInfos);
+      console.log(allUserPlayerInfo);
       //return(db.postGameInfo(allGameInfos,res));
       return res.json({retVal:true});
     }
@@ -178,30 +182,39 @@ console.log("get failplayer");
 router.post("/postPlayer", function(req, res) {
 console.log("post postPlayer");
 if (req.isAuthenticated()) {
+if(!existingPlayer(req.user.ident)){
   ////check if this is player 1
-for (var i = 0; i < allGameInfos.length; i++) {
-    if(allGameInfos[i].ident == req.body.gameIdent){
-      for (var x = 0; x < allGameInfos[i].players.length; x++) {
-        if(allGameInfos[i].players[0].ident == req.user.ident){
-          console.log("player one post");
-          console.log(allGameInfos[i].players);
-          return res.redirect("/successplayer");
+  for (var i = 0; i < allGameInfos.length; i++) {
+      if(allGameInfos[i].ident == req.body.gameIdent){
+        for (var x = 0; x < allGameInfos[i].players.length; x++) {
+          if(allGameInfos[i].players[0].ident == req.user.ident){
+            console.log("player one post");
+            console.log(allGameInfos[i].players);
+            return res.redirect("/successplayer");
+          }
+          else if(allGameInfos[i].players[x].ident == req.user.ident){
+              console.log("player is in game");
+              return res.redirect("/successjoin");
+          }
+          else{
+            console.log("bacic player post request");
+            for (var y = 0; y <  allGameInfos[i].players.length; y++) {
+              if(!allGameInfos[i].players[y]){
+                allGameInfos[i].players[y] = new Player(req.user.ident, req.user.username,req.body.gameIdent);
+                console.log(allGameInfos[i].players[y]);
+                break;
+              }
+            }
+            console.log(allGameInfos[i].players);
+            return res.redirect("/successplayer");
+          }
+        //  console.log(allGameInfos[i].players);
         }
-        else if(allGameInfos[i].players[x].ident == req.user.ident){
-            console.log("player is in game");
-            return res.redirect("/successjoin");
-        }
-        else{
-          console.log("bacic player post request");
-          allGameInfos[i].players.push(new Player(req.user.ident, req.user.username,req.body.gameIdent));
-          console.log(allGameInfos[i].players);
-          return res.redirect("/successplayer");
-        }
-      //  console.log(allGameInfos[i].players);
       }
     }
-  }
-return res.redirect("/successplayer");
+    console.log("none of the above");
+  return res.redirect("/successjoin");
+}
 }
 else {
 return res.redirect("/failplayer");
@@ -212,7 +225,7 @@ router.get("/player", function (req,res){
   if (req.isAuthenticated()) {
     console.log("success get player");
     for (var i = 0; i < allGameInfos.length; i++) {
-        if(allGameInfos[i].players[0].name == req.user.username){
+        if(allGameInfos[i].players[0].name == req.user.username && allGameInfos[i].ident == req.user.username){
           console.log("send player 1 html");
           let thePath = path.resolve(__dirname,"public/views/playerone.html");
           res.sendFile(thePath);
@@ -230,6 +243,15 @@ router.get("/player", function (req,res){
     res.sendFile(thePath);
   }
 });
+
+function existingPlayer(ident){
+  for (var i = 0; i < allUserPlayerInfo.length; i++) {
+    if(allUserPlayerInfo[i].ident == ident){
+      return true;
+    }
+  }
+  return false;
+}
 
 
 module.exports = router;
