@@ -210,12 +210,6 @@ return res.redirect("/failplayer");
 router.get("/player", function (req,res){
   console.log("get player");
   if (req.isAuthenticated()) {
-    if(req.user.playing){
-      console.log("active player");
-      let thePath = path.resolve(__dirname,"public/views/join.html");
-      res.sendFile(thePath);
-      return;
-    }
     console.log("success get player");
     for (var i = 0; i < allGameInfos.length; i++) {
         if(allGameInfos[i].players[0].name == req.user.username){
