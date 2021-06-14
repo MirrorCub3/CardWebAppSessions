@@ -1,7 +1,7 @@
 // client js
 var  gameIdent = 0;
-const ident = 0;
-const name = "";
+var ident = 0;
+var name = "";
 
 let myHand = [];
 let id = 1;
@@ -303,6 +303,7 @@ $(document).ready(function(){
 
       ident =  data.retVal.ident;
       name = data.retVal.name;
+      console.log(name);
     }
 	});
 });
