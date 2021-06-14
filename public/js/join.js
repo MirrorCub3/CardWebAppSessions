@@ -18,9 +18,11 @@ function getGames() {
       for (var i = 0; i < data.info.length; i++) {
         console.log(data.info[i].name);
         $("#allGames").append("<div class =" + data.info[i].ident + "  id = 'child'></div>");
-        $("."+data.info[i].ident+"").append(joinAppend);
-        $("."+data.info[i].ident+"").find(findName).text(data.info[i].name);
-        console.log($("."+data.info[i].ident+"").find(findName).innerHTML);
+        //$("."+data.info[i].ident+"").append(joinAppend);
+        $("."+data.info[i].ident+"").find('section').append("<h2 id = 'gameName'>"data.info[i].name"</h2>");
+        $("."+data.info[i].ident+"").find('section').append("<p id = 'playerNum'>Active Players: "+ data.info[i].players +"</p> ");
+        $("."+data.info[i].ident+"").find('section').append("<p id = 'hostName'>Host: "+data.info[i].host+" </p>");
+        $("."+data.info[i].ident+"").find('section').append("<input id='joinButton' type='button' value=' Join Game ' onclick = 'joinGame(this)'/>");
       }
     });
     let numMilliSeconds = 2000;
@@ -53,7 +55,8 @@ function logoutClicked(){ //logout function
 }
 function joinGame(element){
 console.log("joinclicked");
-console.log($("#"+ element.attr('id')+"").attr("class"));
+console.log(element);
+//console.log($("#"+ element.attr('id')+"").attr("class"));
 }
 $(document).ready(function(){
   console.log("ready");
