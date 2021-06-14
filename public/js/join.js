@@ -51,12 +51,10 @@ console.log("joinclicked");
 let str = element.id.toString();
 let gameIdent = str.substring(10,str.length);
 console.log(gameIdent);
-function postPlayer(){
-  $.post("/postPlayer",{gameIdent: gameIdent},
-      function(data){
-          window.location = data.redirect;
-  });
-}
+$.post("/postPlayer",{gameIdent: gameIdent},
+    function(data){
+        window.location = data.redirect;
+});
 }
 $(document).ready(function(){
   console.log("ready");
