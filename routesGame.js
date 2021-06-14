@@ -234,7 +234,7 @@ router.get("/player", function (req,res){
   if (req.isAuthenticated()) {
     console.log("success get player");
     for (var i = 0; i < allGameInfos.length; i++) {
-        if(allGameInfos[i].players[0].name == req.user.username && allGameInfos[i].ident == findPlayerGame(req.user.ident)){
+        if(allGameInfos[i].players[0].name == req.user.username && allGameInfos[i].players[0].ident == findPlayerGame(req.user.ident)){
           console.log("send player 1 html");
           let thePath = path.resolve(__dirname,"public/views/playerone.html");
           res.sendFile(thePath);
@@ -269,8 +269,10 @@ function existingPlayer(ident){
 }
 
 function findPlayerGame(ident){
+  console.log("in find player game ident");
   for (var i = 0; i < allUserPlayerInfo.length; i++) {
     if(allUserPlayerInfo[i].ident == ident){
+      console.log('game ident match');
       console.log(allUserPlayerInfo[i].gameIdent);
       return (allUserPlayerInfo[i].gameIdent);
     }
