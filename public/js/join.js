@@ -1,16 +1,21 @@
-const joinAppend = "<div class = '-1' id = 'child'><section><h2 id = 'gameName'>Virtual Cards</h2><p id = 'playerNum'>Active Players: </p>  <p id = 'hostName'> Host: </p><input id='joinButton' type='button' value=' Join Game ' onclick = joinGame(this)/></section></div>";
+const joinDiv = "<div class = '-1' id = 'child'></div>";
+const joinAppend = "<section><h2 id = 'gameName'>Virtual Cards</h2><p id = 'playerNum'>Active Players: </p>  <p id = 'hostName'> Host: </p><input id='joinButton' type='button' value=' Join Game ' onclick = joinGame(this)/></section>";
 
 
 getGames();
 function getGames() {
   console.log("getting games");
+    $("#allGames").empty();
     $.get("/getGameList",function(data){
       if(!data.retVal){
         $("#noGame").attr("hidden", false);
         return;
       }
       $("#noGame").attr("hidden", true);
-      console.log(data.info);
+      for (var i = 0; i < data.info.length; i++) {
+        $("#allGames").append("<div class =" + data.info[i].ident + "  id = 'child'></div>");
+        $("."+data.info[i].ident+"").append(joinAppend);
+      }
     });
     let numMilliSeconds = 2000;
     setTimeout(getGames, numMilliSeconds);
