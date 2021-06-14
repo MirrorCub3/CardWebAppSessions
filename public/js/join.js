@@ -19,7 +19,7 @@ function getGames() {
         if(data.info[i].gameActive == true){
         console.log(data.info[i].name);
         $("#allGames").append("<div class =" + data.info[i].ident + "  id = 'child'></div>");
-        $("."+data.info[i].ident+"").append("<section><h2 id = 'gameName'> "+data.info[i].name+"</h2><p id = 'playerNum'>Active Players: "+data.info[i].players+"</p>  <p id = 'hostName'> Host: "+data.info[i].host+"</p><input id='joinButton' type='button' value=' Join Game ' onclick = 'joinGame(this)'/></section>");
+        $("."+data.info[i].ident+"").append("<section><h2 id = 'gameName'> "+data.info[i].name+"</h2><p id = 'playerNum'>Active Players: "+data.info[i].players+"</p>  <p id = 'hostName'> Host: "+data.info[i].host+"</p><input id='joinButton"+data.info[i].dent+"' type='button' value=' Join Game ' onclick = 'joinGame(this)'/></section>");
         }
       }
     });
@@ -54,7 +54,8 @@ function logoutClicked(){ //logout function
 function joinGame(element){
 console.log("joinclicked");
 console.log(element);
-console.log($("#"+ element.id+"").attr("class"));
+let str = element.id;
+console.log(str.substring(10,str.length));
 }
 $(document).ready(function(){
   console.log("ready");
