@@ -304,6 +304,12 @@ $(document).ready(function(){
       ident =  data.retVal.ident;
       name = data.retVal.name;
       console.log(name);
+      $.get("/findPlayerNum",function(data){ // gets the values stored in the database
+          console.log("in findPlayerNum");
+    		if (data) {
+            gameIdent = data.gameIdent;
+        }
+    	});
     }
 	});
 });

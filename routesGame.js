@@ -154,7 +154,7 @@ console.log("post gameinfo");
       let players = [];
       players.length = req.body.playerNum;
       players[0] = new Player(req.user.ident, req.user.username,req.body.ident);
-      var info = new GameInfoJS(
+      let info = new GameInfoJS(
         req.body.ident,
         req.body.playerNum,
         players,
@@ -182,7 +182,7 @@ console.log("post postPlayer");
 if (req.isAuthenticated()) {
 if(existingPlayer(req.user.ident) == false){
   ////check if this is player 1
-  for (var i = 0; i < allGameInfos.length; i++) {
+  for (let i = 0; i < allGameInfos.length; i++) {
       if(allGameInfos[i].ident == req.body.gameIdent){
           if(allGameInfos[i].players[0].name == req.user.username){
             console.log("player one post");
@@ -195,7 +195,7 @@ if(existingPlayer(req.user.ident) == false){
           else{
             console.log("bacic player post request");
             let activecount = 0;
-            for (var y = 0; y <  allGameInfos[i].players.length; y++) {
+            for (let y = 0; y <  allGameInfos[i].players.length; y++) {
               if(allGameInfos[i].players[y] && allGameInfos[i].players[y].ident == req.user.ident){
                   console.log("player is in game");
                   return res.redirect("/successjoin");
@@ -235,7 +235,7 @@ router.get("/player", function (req,res){
   console.log("get player");
   if (req.isAuthenticated()) {
     console.log("success get player");
-    for (var i = 0; i < allGameInfos.length; i++) {
+    for (let i = 0; i < allGameInfos.length; i++) {
         if(allGameInfos[i].players[0].name == req.user.username ){
           console.log("send player 1 html");
           let thePath = path.resolve(__dirname,"public/views/playerone.html");
@@ -263,7 +263,7 @@ router.get("/player", function (req,res){
 
 function existingPlayer(ident){
   console.log("in existing player");
-  for (var i = 0; i < allUserPlayerInfo.length; i++) {
+  for (let i = 0; i < allUserPlayerInfo.length; i++) {
     if(allUserPlayerInfo[i].ident == ident){
       console.log("players matching idents");
       return true;
@@ -275,7 +275,7 @@ function existingPlayer(ident){
 function findPlayerGame(ident){
   console.log(ident);
   console.log("in find player game ident");
-  for (var i = 0; i < allUserPlayerInfo.length; i++) {
+  for (let i = 0; i < allUserPlayerInfo.length; i++) {
     if(allUserPlayerInfo[i].ident == ident){
       console.log('game ident match');
       console.log(allUserPlayerInfo[i].gameIdent);
@@ -284,5 +284,14 @@ function findPlayerGame(ident){
   }
   return (0);
 }
+
+router.get("/findPlayerNum", function (req,res){
+    console.log("finding player game number");
+    if (req.isAuthenticated()) {
+      return res.json({gameIdent: findPlayerGame(req.user.ident)});
+    }
+    return res.redirect("/failplayer");
+});
+
 
 module.exports = router;
