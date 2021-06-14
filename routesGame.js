@@ -154,8 +154,6 @@ console.log("post gameinfo");
       let players = [];
       players.length = req.body.playerNum;
       players[0] = new Player(req.user.ident, req.user.username,req.body.ident);
-      let obj = new UserJS(req.user.ident, req.user.username,req.body.ident);
-      allUserPlayerInfo.push(obj);
       var info = new GameInfoJS(
         req.body.ident,
         req.body.playerNum,
@@ -182,13 +180,15 @@ console.log("get failplayer");
 router.post("/postPlayer", function(req, res) {
 console.log("post postPlayer");
 if (req.isAuthenticated()) {
-//if(existingPlayer(req.user.ident) == false){
+if(existingPlayer(req.user.ident) == false){
   ////check if this is player 1
   for (var i = 0; i < allGameInfos.length; i++) {
       if(allGameInfos[i].ident == req.body.gameIdent){
           if(allGameInfos[i].players[0].name == req.user.username){
             console.log("player one post");
             console.log(allGameInfos[i].players);
+            let obj = new UserJS(req.user.ident, req.user.username,req.body.gameIdent);
+            allUserPlayerInfo.push(obj);
             return res.redirect("/successplayer");
             break;
           }
@@ -222,7 +222,7 @@ if (req.isAuthenticated()) {
           }
         //  console.log(allGameInfos[i].players);
       }
-    //}
+    }
 }
 console.log("none of the above");
 return res.redirect("/successjoin");
