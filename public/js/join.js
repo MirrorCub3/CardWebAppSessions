@@ -19,7 +19,8 @@ function getGames() {
         console.log(data.info[i]);
         $("#allGames").append("<div class =" + data.info[i].ident + "  id = 'child'></div>");
         $("."+data.info[i].ident+"").append(joinAppend);
-        $("."+data.info[i].ident+"").find(findName).text(data.info[i].name); ;
+        $("."+data.info[i].ident+"").find(findName).text(data.info[i].name);
+        console.log($("."+data.info[i].ident+"").find(findName).text());
       }
     });
     let numMilliSeconds = 2000;
