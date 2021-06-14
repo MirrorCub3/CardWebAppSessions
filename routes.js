@@ -164,11 +164,11 @@ router.get("/account", function(req, res) {
   console.log("get account");
   if (req.isAuthenticated()) {
 
-    if (req.user.username == "admin") // admin is a special user built into the code - ie hardcoded
-    {
-       let thePath = path.resolve(__dirname,"public/views/adminsession.html"); // sends the admin specific html to admin
-       res.sendFile(thePath);
-    }
+    // if (req.user.username == "admin") // admin is a special user built into the code - ie hardcoded
+    // {
+    //    let thePath = path.resolve(__dirname,"public/views/adminsession.html"); // sends the admin specific html to admin
+    //    res.sendFile(thePath);
+    // }
     else
     {
 	     let thePath = path.resolve(__dirname,"public/views/account.html");

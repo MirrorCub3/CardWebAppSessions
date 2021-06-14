@@ -49,10 +49,10 @@ router.get('/read', function(req, res){ // the read from sessions
 });
 
 
-router.get('/readAdmin', function(req, res){
-	if (req.isAuthenticated()) {
-		if (req.user.username == "admin")
-		{
+// router.get('/readAdmin', function(req, res){
+// 	if (req.isAuthenticated()) {
+// 		if (req.user.username == "admin")
+// 		{
 
 //added below for mongo
 
@@ -78,11 +78,11 @@ router.post('/create', function(req, res){
 			res.json(null);
 			return;
 		}
-
-		if (req.user.username == "admin") {
-			res.json(null);
-			return;
-		}
+    // 
+		// if (req.user.username == "admin") {
+		// 	res.json(null);
+		// 	return;
+		// }
 
 		console.log(req.body.grade);
 		console.log(req.body.volleyball);
