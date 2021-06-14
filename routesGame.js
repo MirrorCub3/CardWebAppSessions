@@ -241,11 +241,16 @@ router.get("/player", function (req,res){
           let thePath = path.resolve(__dirname,"public/views/playerone.html");
           res.sendFile(thePath);
         }
-        else{
+      }
+      if(findPlayerGame(req.user.ident) > 0){
           console.log("send player basic html");
           let thePath = path.resolve(__dirname,"public/views/player.html");
           res.sendFile(thePath);
-        }
+      }
+      else{
+        console.log("not a player");
+        let thePath = path.resolve(__dirname,"public/views/join.html");
+        res.sendFile(thePath);
       }
   }
   else {
