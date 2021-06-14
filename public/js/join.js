@@ -1,5 +1,5 @@
 const joinDiv = "<div class = '-1' id = 'child'></div>";
-const joinAppend = "<section><h2 id = 'gameName'>Virtual Cards</h2><p id = 'playerNum'>Active Players: </p>  <p id = 'hostName'> Host: </p><input id='joinButton' type='button' value=' Join Game ' onclick = 'joinGame(this)'/></section>";
+const joinAppend = "<section><h2 id = 'gameName'> "+data.info[i].name+"</h2><p id = 'playerNum'>Active Players: "+data.info[i].players+"</p>  <p id = 'hostName'> Host: "+data.info[i].host+"</p><input id='joinButton' type='button' value=' Join Game ' onclick = 'joinGame(this)'/></section>";
 const findName = $("#gameName");
 const findNum = $("#playerNum");
 const findHost = $("#hostName");
@@ -18,13 +18,8 @@ function getGames() {
       for (var i = 0; i < data.info.length; i++) {
         console.log(data.info[i].name);
         $("#allGames").append("<div class =" + data.info[i].ident + "  id = 'child'></div>");
-        //$("."+data.info[i].ident+"").append(joinAppend);
-        let findSection = $('section');
-        $("."+data.info[i].ident+"").find(findSection).append("<h2 id = 'gameName'>" + data.info[i].name + "</h2>");
-        $("."+data.info[i].ident+"").find(findSection).append("<p id = 'playerNum'>Active Players: "+ data.info[i].players +"</p> ");
-        $("."+data.info[i].ident+"").find(findSection).append("<p id = 'hostName'>Host: "+data.info[i].host+" </p>");
-        $("."+data.info[i].ident+"").find(findSection).append("<input id='joinButton' type='button' value=' Join Game ' onclick = 'joinGame(this)'/>");
-      }
+        $("."+data.info[i].ident+"").append(joinAppend);
+        }
     });
     let numMilliSeconds = 2000;
     setTimeout(getGames, numMilliSeconds);
