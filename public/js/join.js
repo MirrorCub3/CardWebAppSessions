@@ -1,5 +1,5 @@
 const joinDiv = "<div class = '-1' id = 'child'></div>";
-const joinAppend = "<section><h2 id = 'gameName'>Virtual Cards</h2><p id = 'playerNum'>Active Players: </p>  <p id = 'hostName'> Host: </p><input id='joinButton' type='button' value=' Join Game ' onclick = joinGame()/></section>";
+const joinAppend = "<section><h2 id = 'gameName'>Virtual Cards</h2><p id = 'playerNum'>Active Players: </p>  <p id = 'hostName'> Host: </p><input id='joinButton' type='button' value=' Join Game ' onclick = 'joinGame(this)'/></section>";
 const findName = $("#gameName");
 const findNum = $("#playerNum");
 const findHost = $("#hostName");
@@ -51,8 +51,9 @@ function logoutClicked(){ //logout function
 	});
 	return false;
 }
-function joinGame(){
+function joinGame(element){
 console.log("joinclicked");
+console.log(element.attr('class'));
 }
 $(document).ready(function(){
   console.log("ready");
