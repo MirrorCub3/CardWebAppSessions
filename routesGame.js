@@ -182,7 +182,7 @@ console.log("get failplayer");
 router.post("/postPlayer", function(req, res) {
 console.log("post postPlayer");
 if (req.isAuthenticated()) {
-//
+//if(existingPlayer(req.user.ident) == false){
   ////check if this is player 1
   for (var i = 0; i < allGameInfos.length; i++) {
       if(allGameInfos[i].ident == req.body.gameIdent){
@@ -222,8 +222,8 @@ if (req.isAuthenticated()) {
           }
         //  console.log(allGameInfos[i].players);
       }
-    }
-//}
+    //}
+}
 console.log("none of the above");
 return res.redirect("/successjoin");
 }
