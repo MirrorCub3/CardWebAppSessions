@@ -3,6 +3,7 @@ var express = require("express");
 var passport = require("passport");
 
 var User = require("./models/user");
+const UserJS = require('./user');
 //const GameInfo = require('./models/gameInfo');
 const GameInfoJS = require('./gameInfo');
 
