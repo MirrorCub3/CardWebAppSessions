@@ -199,6 +199,7 @@ if(!existingPlayer(req.user.ident)){
               if(allGameInfos[i].players[y] && allGameInfos[i].players[y].ident == req.user.ident){
                   console.log("player is in game");
                   return res.redirect("/successjoin");
+                  break;
               }
               if(!allGameInfos[i].players[y]){
                 allGameInfos[i].players[y] = new Player(req.user.ident, req.user.username,req.body.gameIdent);
@@ -210,6 +211,7 @@ if(!existingPlayer(req.user.ident)){
               }
             }
             if(activecount >= allGameInfos[i].players){
+              console.log("too many players");
               return res.redirect("/successjoin");
             }
               let obj = new UserJS(req.user.ident, req.user.username,req.body.gameIdent);
