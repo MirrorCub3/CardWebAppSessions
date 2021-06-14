@@ -151,7 +151,7 @@ console.log("post gameinfo");
 
       let players = [];
       players.length = req.body.playerNum;
-      players[0] = new Player(req.body.hostIdent, req.body.hostName);
+      players[0] = new Player(req.user.ident, req.user.username);
       var info = new GameInfoJS(
         req.body.ident,
         req.body.playerNum,
@@ -180,12 +180,12 @@ if (req.isAuthenticated()) {
   ////check if this is player 1
 for (var i = 0; i < allGameInfos.length; i++) {
     if(allGameInfos[i].ident == req.body.gameIdent){
-        if(allGameInfos[i].players[0].ident == req.body.ident){
+        if(allGameInfos[i].players[0].ident == req.user.ident){
           console.log("player one post request");
         }
         else{
           console.log("bacic player post request");
-          allGameInfos[i].ident.players.push(new Player(req.body.ident, req.body.name));
+          allGameInfos[i].ident.players.push(new Player(req.user.ident, req.user.username));
         }
         console.log(allGameInfos[i].players);
     }

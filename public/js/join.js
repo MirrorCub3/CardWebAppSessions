@@ -53,9 +53,6 @@ function logoutClicked(){ //logout function
 }
 function joinGame(element){
 console.log("joinclicked");
-console.log(element);
-let str = element.id.toString();
-console.log(str);
 console.log(str.substring(10,str.length));
 }
 $(document).ready(function(){
