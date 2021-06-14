@@ -201,21 +201,28 @@ return res.redirect("/failplayer");
 router.get("/player", function (req,res){
   console.log("get player");
   if (req.isAuthenticated()) {
-    console.log("success get player");
-    for (var i = 0; i < allGameInfos.length; i++) {
-        if(allGameInfos[i].players[0].name == req.user.username){
-          console.log("send player 1 html");
-          let thePath = path.resolve(__dirname,"public/views/playerone.html");
-          res.sendFile(thePath);
-        }
-        else{
-          console.log("send player basic html");
-          let thePath = path.resolve(__dirname,"public/views/player.html");
-          res.sendFile(thePath);
-        }
+    var Prom2 = existingPlayer(req.user.ident);
+    Prom2.then(
+      function(result) { // the good function
+        console.log("success get player");
+        for (var i = 0; i < allGameInfos.length; i++) {
+            if(allGameInfos[i].players[0].name == req.user.username){
+              console.log("send player 1 html");
+              let thePath = path.resolve(__dirname,"public/views/playerone.html");
+              res.sendFile(thePath);
+            }
+            else{
+              console.log("send player basic html");
+              let thePath = path.resolve(__dirname,"public/views/player.html");
+              res.sendFile(thePath);
+            }
+          }
+      },
+      function(err) { // the reject function
+        let thePath = path.resolve(__dirname,"public/views/join.html");
+        res.sendFile(thePath);
       }
-    let thePath = path.resolve(__dirname,"public/views/player.html");
-    res.sendFile(thePath);
+    );
   }
   else {
     console.log("fail get create");
@@ -223,5 +230,22 @@ router.get("/player", function (req,res){
     res.sendFile(thePath);
   }
 });
+
+function existingPlayer(ident){
+  return new Promise(function(resolve,reject) { // an instance of a promise, putting the code we want to happen first inside that promise
+    for (var i = 0; i < allGameInfos.length; i++) {
+      for (var x = 0; x < allGameInfos[i].players.length; x++) {
+          if(ident == allGameInfos[i].players[x].ident){
+              reject(ident);
+              break;
+          }
+          else{
+            resolve(ident);
+          }
+      }
+    }
+	});
+}
+
 
 module.exports = router;
