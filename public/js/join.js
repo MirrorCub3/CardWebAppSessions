@@ -54,7 +54,7 @@ function logoutClicked(){ //logout function
 function joinGame(element){
 console.log("joinclicked");
 console.log(element);
-//console.log($("#"+ element.attr('id')+"").attr("class"));
+console.log($("#"+ element.id+"").attr("class"));
 }
 $(document).ready(function(){
   console.log("ready");
