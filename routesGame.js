@@ -96,7 +96,7 @@ function initGameIdent(){
 //   });
 
 router.get("/getGameList", function(req,res,next){
-  return(db.getGameList(req.user.ident,res));
+  return(db.getGameList(res));
 //	return(db.getStudent(req.user.ident,res));
 });
 router.get("/getGame", function(req, res) {

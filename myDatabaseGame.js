@@ -55,6 +55,24 @@ myDatabaseGame.prototype.getGame = function(ident,res) {
 
    });
 }
+myDatabaseGame.prototype.getGameList = function(res) {
+  GameSettings.find({},function(error,info) { //doing a find on the students id - the unique identifier
+      if (error) {
+          return res.json({retVal:null});
+      }
+      else if (info == null) {
+          return res.json({retVal:null});
+      }
+
+      if (info.length >= 1)
+      {
+        return res.json({ retVal: true, info: info});
+      }
+      else
+          return res.json({retVal:null});
+
+   });
+}
 // myDatabaseGame.prototype.getGameInfo = function(res) {
 //   GameInfo.find({},function(error,info) { //doing a find on the students id - the unique identifier
 //       if (error) {

@@ -4,11 +4,14 @@ const joinAppend = "<div class = '-1' id = 'child'><section><h2 id = 'gameName'>
 getGames();
 function getGames() {
   console.log("getting games");
-    // $.get("/getGameList",function(data){
-    //   if(!data.retVal){
-    //
-    //   }
-    // });
+    $.get("/getGameList",function(data){
+      if(!data.retVal){
+        $("#noGame").attr("hidden", false);
+        return;
+      }
+      $("#noGame").attr("hidden", true);
+      console.log(data.info);
+    });
     let numMilliSeconds = 2000;
     setTimeout(getGames, numMilliSeconds);
 }
@@ -54,7 +57,7 @@ $(document).ready(function(){
       $(".dropbtn").text(name);
     }
 	});
-  $("#allGames").append(joinAppend);
+  //$("#allGames").append(joinAppend);
 });
 //$( document ).ready(function() {
   //  $("#messages").append('<li>' + GameSettings.id + '</li>');
