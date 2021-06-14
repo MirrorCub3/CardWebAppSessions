@@ -183,7 +183,6 @@ for (var i = 0; i < allGameInfos.length; i++) {
       for (var x = 0; x < allGameInfos[i].players.length; x++) {
         if(allGameInfos[i].players[x].ident == req.user.ident){
           console.log("player is in the game already");
-          break;
         }
         else{
           console.log("bacic player post request");
