@@ -256,6 +256,7 @@ router.get("/player", function (req,res){
 });
 
 function existingPlayer(ident){
+  console.log("in existing player");
   for (var i = 0; i < allUserPlayerInfo.length; i++) {
     if(allUserPlayerInfo[i].ident == ident){
       console.log("players matching idents");
