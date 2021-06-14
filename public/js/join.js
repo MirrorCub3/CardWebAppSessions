@@ -1,3 +1,13 @@
+const joinAppend = "<div class = '-1' id = 'child'>
+<section>
+    <h2 id = 'gameName'>Virtual Cards</h2>
+    <p id = 'playerNum'>Active Players: </p>
+    <p id = 'hostName'> Host: </p>
+    <input id='joinButton' type='button' value=' Join Game ' onclick = joinGame(this)/>
+</section>
+</div>";
+
+
 getGames();
 function getGames() {
   console.log("getting games");
@@ -34,9 +44,11 @@ function logoutClicked(){ //logout function
 	});
 	return false;
 }
+function joinGame(element){
+
+}
 $(document).ready(function(){
   console.log("ready");
-  $("#messages").append('<li>' + GameSettings.id + '</li>');
   $.get("/userInfo",function(data){ // gets the values stored in the database
       console.log("in userInfo");
 		if (data.retVal.name) {
@@ -49,6 +61,7 @@ $(document).ready(function(){
       $(".dropbtn").text(name);
     }
 	});
+  $("#allGames").append(joinAppend);
 });
 //$( document ).ready(function() {
   //  $("#messages").append('<li>' + GameSettings.id + '</li>');

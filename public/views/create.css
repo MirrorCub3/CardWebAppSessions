@@ -44,14 +44,6 @@ section{
      margin:auto;
 }
 
-p{
-  color:#ffffff;
-  font-family: 'Courier New', Courier, monospace;
-  font-style: oblique;
-  font-variant: small-caps;
-  font-size: 20px
-}
-
 
 .navbar {
  overflow: hidden;
