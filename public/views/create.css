@@ -32,9 +32,6 @@ header {
 }
 
 section{
-
-
-
     font-size: 25px;
     color:whitesmoke;
     border:#cc0000 5px outset;
@@ -45,7 +42,14 @@ section{
     padding-block-end: 0.625em;
     width: 500px;
      margin:auto;
+}
 
+p{
+  color:#ffffff;
+  font-family: 'Courier New', Courier, monospace;
+  font-style: oblique;
+  font-variant: small-caps;
+  font-size: 20px
 }
 
 
