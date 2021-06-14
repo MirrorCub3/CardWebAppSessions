@@ -186,20 +186,20 @@ if(!existingPlayer(req.user.ident)){
   ////check if this is player 1
   for (var i = 0; i < allGameInfos.length; i++) {
       if(allGameInfos[i].ident == req.body.gameIdent){
-        for (var x = 0; x < allGameInfos[i].players.length; x++) {
           if(allGameInfos[i].players[0].name == req.user.username){
             console.log("player one post");
             console.log(allGameInfos[i].players);
             return res.redirect("/successplayer");
-          }
-          else if(allGameInfos[i].players[x].ident == req.user.ident){
-              console.log("player is in game");
-              return res.redirect("/successjoin");
+            break;
           }
           else{
             console.log("bacic player post request");
             let activecount = 0;
             for (var y = 0; y <  allGameInfos[i].players.length; y++) {
+              if(allGameInfos[i].players[y].ident == req.user.ident){
+                  console.log("player is in game");
+                  return res.redirect("/successjoin");
+              }
               if(!allGameInfos[i].players[y]){
                 allGameInfos[i].players[y] = new Player(req.user.ident, req.user.username,req.body.gameIdent);
                 console.log(allGameInfos[i].players[y]);
@@ -219,7 +219,6 @@ if(!existingPlayer(req.user.ident)){
             return res.redirect("/successplayer");
           }
         //  console.log(allGameInfos[i].players);
-        }
       }
     }
 }
