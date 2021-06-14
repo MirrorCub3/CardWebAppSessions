@@ -20,7 +20,7 @@ function getGames() {
         $("#allGames").append("<div class =" + data.info[i].ident + "  id = 'child'></div>");
         $("."+data.info[i].ident+"").append(joinAppend);
         $("."+data.info[i].ident+"").find(findName).text(data.info[i].name);
-        console.log($("."+data.info[i].ident+"").find(findName).text());
+        console.log($("."+data.info[i].ident+"").find(findName));
       }
     });
     let numMilliSeconds = 2000;
@@ -53,7 +53,7 @@ function logoutClicked(){ //logout function
 }
 function joinGame(element){
 console.log("joinclicked");
-console.log(element.attr('class'));
+console.log($("#"+ element.attr('id')+"").attr("class"));
 }
 $(document).ready(function(){
   console.log("ready");
