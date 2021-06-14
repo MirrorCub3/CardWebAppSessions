@@ -1,4 +1,4 @@
-let UserJS = function(name,ident,gameIdent) {
+let UserJS = function(ident,name,gameIdent) {
 	this.ident = ident;
 	this.name = name;
 	this.gameIdent = gameIdent;
