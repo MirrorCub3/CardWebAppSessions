@@ -55,6 +55,7 @@ function joinGame(element){
 console.log("joinclicked");
 console.log(element);
 let str = toString(element.id);
+console.log(str);
 console.log(str.substring(10,str.length));
 }
 $(document).ready(function(){
