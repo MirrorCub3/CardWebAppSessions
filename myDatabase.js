@@ -46,7 +46,7 @@ myDatabase.prototype.getUser = function(ident,res) { // geting the stuent info -
       if (user.length == 1)
       { //vv this returns the userdb stored info
         console.log(" name = " + user[0].username);
-        return res.json({ retVal: new UserJS(user[0].username,ident)});
+        return res.json({ retVal: new UserJS(ident,user[0].username)});
       }
       else
           return res.json({retVal:null});
