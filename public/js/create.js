@@ -11,6 +11,10 @@ const pswInput = "<div id= 'pswInput'><label for = 'psw'> Password:</label><inpu
 const shuffleInput = "<div id = 'shuffleDiv'><label for = 'ShuffleOn'>Shuffle On Replacement: </label>  <input type = 'checkbox' id = 'ShuffleOn' title= 'Shuffle Discard Pile Into To Main Deck'></div>";
 var deckSize = deckClassic;
 function SetGame(){
+  if(!validString($("#name").val())){
+    alert("Choose a Different Name");
+    return;
+  }
   console.log("In SetGame");
   if(/^[ ]*[ ]*$/.test($("#name").val())){
     console.log("bad name");
