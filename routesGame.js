@@ -234,14 +234,19 @@ router.get("/player", function (req,res){
   if (req.isAuthenticated()) {
     console.log("success get player");
     for (var i = 0; i < allGameInfos.length; i++) {
-        if(allGameInfos[i].players[0].name == req.user.username && allGameInfos[i].ident == req.user.username){
+        if(allGameInfos[i].players[0].name == req.user.username && allGameInfos[i].ident == findPlayerGame(req.user.ident)){
           console.log("send player 1 html");
           let thePath = path.resolve(__dirname,"public/views/playerone.html");
           res.sendFile(thePath);
         }
-        else{
+        else if(allGameInfos[i].ident == findPlayerGame(req.user.ident)){
           console.log("send player basic html");
           let thePath = path.resolve(__dirname,"public/views/player.html");
+          res.sendFile(thePath);
+        }
+        else{
+          console.log("send player basic html");
+          let thePath = path.resolve(__dirname,"public/views/join.html");
           res.sendFile(thePath);
         }
       }
@@ -256,11 +261,21 @@ router.get("/player", function (req,res){
 function existingPlayer(ident){
   for (var i = 0; i < allUserPlayerInfo.length; i++) {
     if(allUserPlayerInfo[i].ident == ident){
+      console.log("players matching idents");
       return true;
     }
   }
   return false;
 }
 
+function findPlayerGame(ident){
+  for (var i = 0; i < allUserPlayerInfo.length; i++) {
+    if(allUserPlayerInfo[i].ident == ident){
+      return (allUserPlayerInfo[i].gameIdent);
+    }
+  }
+  return (0);
+
+}
 
 module.exports = router;
