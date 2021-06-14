@@ -36,6 +36,7 @@ function logoutClicked(){ //logout function
 }
 $(document).ready(function(){
   console.log("ready");
+  $("#messages").append('<li>' + GameSettings.id + '</li>');
   $.get("/userInfo",function(data){ // gets the values stored in the database
       console.log("in userInfo");
 		if (data.retVal.name) {
