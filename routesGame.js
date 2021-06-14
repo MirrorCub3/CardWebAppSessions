@@ -272,6 +272,7 @@ function existingPlayer(ident){
 }
 
 function findPlayerGame(ident){
+  console.log(ident);
   console.log("in find player game ident");
   for (var i = 0; i < allUserPlayerInfo.length; i++) {
     if(allUserPlayerInfo[i].ident == ident){
