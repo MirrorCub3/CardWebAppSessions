@@ -18,6 +18,7 @@ function SetGame(){
   console.log("In SetGame");
   if(/^[ ]*[ ]*$/.test($("#name").val())){
     console.log("bad name");
+    $("#name").val(defaultName);
   }
   let all = false;
   if($("#deal").val() == "DealAll"){
