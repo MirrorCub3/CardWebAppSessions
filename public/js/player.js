@@ -1,6 +1,7 @@
 // client js
 var  gameIdent = 0;
-let consoleUp = true;
+const ident = 0;
+const name = "";
 
 let myHand = [];
 let id = 1;
@@ -270,9 +271,6 @@ function successinfo(data){
     id = parseInt(data.id);
     realId = parseInt(data.realid);
     //console.log(id + " " + realId);
-    document.getElementById("nameset").value = "Player " + id;
-    document.getElementById("playerId").innerHTML = "PLAYER " + id;
-    document.getElementById("gameName").innerHTML = data.gamename;
     myHand = data.hand;
     //console.log(myHand);
 
@@ -296,9 +294,17 @@ function successinfo(data){
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 $(document).ready(function(){
-    //console.log("player ready");
-    //$.get("/player2", {index:1,id:id},successinfo);
-    $.get("/player2",successinfo);
+  console.log("ready");
+  $.get("/userInfo",function(data){ // gets the values stored in the database
+      console.log("in userInfo");
+		if (data.retVal.name) {
+      console.log(data.retVal.name);
+      console.log(data.retVal.ident);
+
+      ident =  data.retVal.ident;
+      name = data.retVal.name;
+    }
+	});
 });
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 window.addEventListener('beforeunload',function () {
@@ -585,7 +591,7 @@ context.lineWidth = 1
  context.fillText (others[1].name, theCanvas.width/3+20, 10);
  if(others.length>2)
  context.fillText (others[2].name, theCanvas.width/3*2+30, 10);
- context.fillText ($("#nameset").val(), 360, 285);
+ context.fillText (name, 360, 285);
 
  }
 
