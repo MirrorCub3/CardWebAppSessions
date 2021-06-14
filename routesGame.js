@@ -187,7 +187,7 @@ if(!existingPlayer(req.user.ident)){
   for (var i = 0; i < allGameInfos.length; i++) {
       if(allGameInfos[i].ident == req.body.gameIdent){
         for (var x = 0; x < allGameInfos[i].players.length; x++) {
-          if(allGameInfos[i].players[0].ident == req.user.ident){
+          if(allGameInfos[i].players[0].name == req.user.username){
             console.log("player one post");
             console.log(allGameInfos[i].players);
             return res.redirect("/successplayer");
@@ -198,14 +198,20 @@ if(!existingPlayer(req.user.ident)){
           }
           else{
             console.log("bacic player post request");
+            let activecount = 0;
             for (var y = 0; y <  allGameInfos[i].players.length; y++) {
               if(!allGameInfos[i].players[y]){
                 allGameInfos[i].players[y] = new Player(req.user.ident, req.user.username,req.body.gameIdent);
                 console.log(allGameInfos[i].players[y]);
                 break;
               }
+              else{
+                activecount++;
+              }
             }
-
+            if(activecount >= allGameInfos[i].players){
+              return res.redirect("/successjoin");
+            }
               let obj = new UserJS(req.user.ident, req.user.username,req.body.gameIdent);
               allUserPlayerInfo.push(obj);
               console.log(allUserPlayerInfo);
