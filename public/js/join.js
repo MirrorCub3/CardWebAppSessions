@@ -1,11 +1,4 @@
-const joinAppend = "<div class = '-1' id = 'child'>
-<section>
-    <h2 id = 'gameName'>Virtual Cards</h2>
-    <p id = 'playerNum'>Active Players: </p>
-    <p id = 'hostName'> Host: </p>
-    <input id='joinButton' type='button' value=' Join Game ' onclick = joinGame(this)/>
-</section>
-</div>";
+const joinAppend = "<div class = '-1' id = 'child'><section><h2 id = 'gameName'>Virtual Cards</h2><p id = 'playerNum'>Active Players: </p>  <p id = 'hostName'> Host: </p><input id='joinButton' type='button' value=' Join Game ' onclick = joinGame(this)/></section></div>";
 
 
 getGames();
