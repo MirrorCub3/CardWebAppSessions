@@ -237,7 +237,6 @@ function existingPlayer(ident){
       for (var x = 0; x < allGameInfos[i].players.length; x++) {
           if(ident == allGameInfos[i].players[x].ident){
               reject(ident);
-              break;
           }
           else{
             resolve(ident);
