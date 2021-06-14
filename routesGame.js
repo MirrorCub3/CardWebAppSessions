@@ -240,6 +240,7 @@ router.get("/player", function (req,res){
           console.log("send player 1 html");
           let thePath = path.resolve(__dirname,"public/views/playerone.html");
           res.sendFile(thePath);
+          return;
         }
       }
       if(findPlayerGame(req.user.ident) > 0){
