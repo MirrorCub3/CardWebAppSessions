@@ -19,10 +19,10 @@ function getGames() {
         console.log(data.info[i].name);
         $("#allGames").append("<div class =" + data.info[i].ident + "  id = 'child'></div>");
         //$("."+data.info[i].ident+"").append(joinAppend);
-        $("."+data.info[i].ident+"").find('section').append("<h2 id = 'gameName'>" + data.info[i].name + "</h2>");
-        $("."+data.info[i].ident+"").find('section').append("<p id = 'playerNum'>Active Players: "+ data.info[i].players +"</p> ");
-        $("."+data.info[i].ident+"").find('section').append("<p id = 'hostName'>Host: "+data.info[i].host+" </p>");
-        $("."+data.info[i].ident+"").find('section').append("<input id='joinButton' type='button' value=' Join Game ' onclick = 'joinGame(this)'/>");
+        $("."+data.info[i].ident+"").find("$('section')").append("<h2 id = 'gameName'>" + data.info[i].name + "</h2>");
+        $("."+data.info[i].ident+"").find("$('section')").append("<p id = 'playerNum'>Active Players: "+ data.info[i].players +"</p> ");
+        $("."+data.info[i].ident+"").find("$('section')").append("<p id = 'hostName'>Host: "+data.info[i].host+" </p>");
+        $("."+data.info[i].ident+"").find("$('section')").append("<input id='joinButton' type='button' value=' Join Game ' onclick = 'joinGame(this)'/>");
       }
     });
     let numMilliSeconds = 2000;
