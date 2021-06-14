@@ -54,11 +54,11 @@ function SetGameInfo(){
             }
             else{
             console.log("game info added, ready to begin game");
-            getPlayer();
+            postPlayer();
             }
           });
 }
-function getPlayer(){
+function postPlayer(){
   $.post("/postPlayer",{ident:ident, name:name, gameIdent: gameIdent},
       function(data){
           window.location = data.redirect;

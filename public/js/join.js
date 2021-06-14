@@ -6,7 +6,6 @@ const findHost = $("#hostName");
 
 getGames();
 function getGames() {
-  console.log("getting games");
     $.get("/getGameList",function(data){
       if(!data.retVal){
         $("#allGames").empty();
@@ -17,7 +16,6 @@ function getGames() {
       $("#noGame").attr("hidden", true);
       for (var i = 0; i < data.info.length; i++) {
         if(data.info[i].gameActive == true){
-        console.log(data.info[i].name);
         $("#allGames").append("<div class =" + data.info[i].ident + "  id = 'child'></div>");
         $("."+data.info[i].ident+"").append("<section><h2 id = 'gameName'> "+data.info[i].name+"</h2><p id = 'playerNum'>Active Players: "+data.info[i].players+"</p>  <p id = 'hostName'> Host: "+data.info[i].host+"</p><input id='joinButton"+data.info[i].ident+"' type='button' value=' Join Game ' onclick = 'joinGame(this)'/></section>");
         }
@@ -29,13 +27,11 @@ function getGames() {
 
 function getCreate(){
   $.get("/getCreate",function (data){
-    console.log('data redirect: ' + data.redirect);
       window.location = data.redirect;
   });
 }
 function joinClicked(){
   $.get("/getJoin",function (data){
-    console.log('data redirect: ' + data.redirect);
       window.location = data.redirect;
   });
 }
@@ -45,7 +41,6 @@ function accountClicked(){
   });
 }
 function logoutClicked(){ //logout function
-  console.log("log out");
 	$.get("/logout",function(data){ // in routes
 		window.location = data.redirect;
 	});
@@ -54,7 +49,14 @@ function logoutClicked(){ //logout function
 function joinGame(element){
 console.log("joinclicked");
 let str = element.id.toString();
-console.log(str.substring(10,str.length));
+let gameIdent = str.substring(10,str.length);
+console.log(gameIdent);
+function postPlayer(){
+  $.post("/postPlayer",{gameIdent: gameIdent},
+      function(data){
+          window.location = data.redirect;
+  });
+}
 }
 $(document).ready(function(){
   console.log("ready");
