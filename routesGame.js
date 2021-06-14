@@ -180,14 +180,17 @@ if (req.isAuthenticated()) {
   ////check if this is player 1
 for (var i = 0; i < allGameInfos.length; i++) {
     if(allGameInfos[i].ident == req.body.gameIdent){
-        if(allGameInfos[i].players[0].ident == req.user.ident){
-          console.log("player one post request");
+      for (var x = 0; x < allGameInfos[i].players.length; x++) {
+        if(allGameInfos[i].players[x].ident == req.user.ident){
+          console.log("player is in the game already");
+          break;
         }
         else{
           console.log("bacic player post request");
           allGameInfos[i].players.push(new Player(req.user.ident, req.user.username));
         }
         console.log(allGameInfos[i].players);
+      }
     }
   }
 return res.redirect("/successplayer");
