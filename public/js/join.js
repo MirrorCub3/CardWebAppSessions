@@ -16,7 +16,7 @@ function getGames() {
       $("#allGames").empty();
       $("#noGame").attr("hidden", true);
       for (var i = 0; i < data.info.length; i++) {
-        if(data.info[i].gameActive == "true"){
+        if(data.info[i].gameActive == true){
         console.log(data.info[i].name);
         $("#allGames").append("<div class =" + data.info[i].ident + "  id = 'child'></div>");
         $("."+data.info[i].ident+"").append(joinAppend);
