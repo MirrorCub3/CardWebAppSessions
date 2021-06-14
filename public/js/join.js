@@ -1,5 +1,5 @@
 const joinDiv = "<div class = '-1' id = 'child'></div>";
-const joinAppend = "<section><h2 id = 'gameName'> "+data.info[i].name+"</h2><p id = 'playerNum'>Active Players: "+data.info[i].players+"</p>  <p id = 'hostName'> Host: "+data.info[i].host+"</p><input id='joinButton' type='button' value=' Join Game ' onclick = 'joinGame(this)'/></section>";
+const joinAppend = "<section><h2 id = 'gameName'> '+data.info[i].name+'</h2><p id = 'playerNum'>Active Players: '+data.info[i].players+'</p>  <p id = 'hostName'> Host: '+data.info[i].host+'</p><input id='joinButton' type='button' value=' Join Game ' onclick = 'joinGame(this)'/></section>";
 const findName = $("#gameName");
 const findNum = $("#playerNum");
 const findHost = $("#hostName");
