@@ -212,9 +212,9 @@ if(!existingPlayer(req.user.ident)){
         }
       }
     }
-    console.log("none of the above");
-  return res.redirect("/successjoin");
 }
+console.log("none of the above");
+return res.redirect("/successjoin");
 }
 else {
 return res.redirect("/failplayer");
