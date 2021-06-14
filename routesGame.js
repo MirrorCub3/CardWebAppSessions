@@ -220,15 +220,11 @@ router.get("/player", function (req,res){
     for (var i = 0; i < allGameInfos.length; i++) {
         if(allGameInfos[i].players[0].name == req.user.username){
           console.log("send player 1 html");
-          let obj = new UserJS(req.user.ident,req.user.username,req.body.grade,true);
-          db.updateUser(obj,res);
           let thePath = path.resolve(__dirname,"public/views/playerone.html");
           res.sendFile(thePath);
         }
         else{
           console.log("send player basic html");
-          let obj = new UserJS(req.user.ident,req.user.username,req.body.grade,true);
-          db.updateUser(obj,res);
           let thePath = path.resolve(__dirname,"public/views/player.html");
           res.sendFile(thePath);
         }
