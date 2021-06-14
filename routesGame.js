@@ -196,7 +196,7 @@ if(!existingPlayer(req.user.ident)){
             console.log("bacic player post request");
             let activecount = 0;
             for (var y = 0; y <  allGameInfos[i].players.length; y++) {
-              if(allGameInfos[i].players[y].ident == req.user.ident){
+              if(allGameInfos[i].players[y] && allGameInfos[i].players[y].ident == req.user.ident){
                   console.log("player is in game");
                   return res.redirect("/successjoin");
               }
