@@ -35,7 +35,18 @@ myDatabaseGame.prototype.postGame = function(game,res) {
 //         return res.json({retVal:true});
 //     });
 // }
+myDatabase.prototype.updateUser = function(user,res) { // geting the stuent info - called on document.ready and in the read function on student sessions and admin
+  User.findOneAndUpdate({ident:user.ident},{playing:user.playing},function(error,olduser) { //doing a find on the students id - the unique identifier
+    if (error) {
+      return res.json({retVal:false});
+    }
+    else if (olduser == null) {
+      return res.json({retVal:false});
+    }
+    return res.json({retVal:true});
+  });
 
+}
 myDatabaseGame.prototype.getGame = function(ident,res) {
   console.log(" game ident = " + ident);
   GameSettings.find({ident:ident},function(error,info) { //doing a find on the students id - the unique identifier
