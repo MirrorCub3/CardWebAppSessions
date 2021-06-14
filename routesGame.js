@@ -181,7 +181,7 @@ if (req.isAuthenticated()) {
 for (var i = 0; i < allGameInfos.length; i++) {
     if(allGameInfos[i].ident == req.body.gameIdent){
       for (var x = 0; x < allGameInfos[i].players.length; x++) {
-        if(allGameInfos[i].players[x] && ameInfos[i].players[x].ident == req.user.ident){
+        if(allGameInfos[i].players[x] && allGameInfos[i].players[x].ident == req.user.ident){
           console.log("player is in the game already");
         }
         else{
