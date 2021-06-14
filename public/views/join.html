@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--   -->
+<html>
+  <head>
+    <title>JOIN</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="/views/join.css">
+    <link rel="icon" type="image/png" href="/views/PNG/AS.png">
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+  </head>
+
+  <body>
+    <div class="navbar">
+          <div class="dropdown" style="float:right;" >
+            <button class="dropbtn">Username
+                <i class="fa fa-caret-down"></i>
+            </button>
+
+            <div class="dropdown-content">
+                <a onclick = "accountClicked()">My Account</a>
+                <br>
+                <a id = "logoutButton" onclick="logoutClicked()">Log Out</a>
+            </div>
+          </div>
+          <a onclick="getCreate()">Create</a>
+          <a onclick="joinClicked()">Join</a>
+    </div>
+<div class="boxJoin">
+  <header>
+  <h1>ACTIVE GAMES</h1>
+  </header>
+  <br>
+  <p id = "noGame" hidden> NO ACTIVE GAMES </p>
+  <div id = "allGames" style = "left: 50%">
+
+
+  </div>
+</div>
+	<script src="js/join.js"></script>
+  </body>
+</html>

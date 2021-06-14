@@ -3,6 +3,7 @@ var express = require("express");
 var passport = require("passport");
 
 var User = require("./models/user");
+const UserJS = require('./user');
 //const GameInfo = require('./models/gameInfo');
 const GameInfoJS = require('./gameInfo');
 
@@ -12,6 +13,7 @@ const GameSettingsJS = require('./gameSettings');
 const Deck = require("./cards.js");
 const Player = require("./Player.js");
 var allGameInfos = [];
+var allUserPlayerInfo = [];
 
 var router = express.Router();
 var bcrypt = require("bcrypt-nodejs");
@@ -84,6 +86,34 @@ function initGameIdent(){
 //   }
 // }
 
+// router.get("/successsendtogame", function(req, res) {
+//   console.log("get successsendtogame");
+//         res.json({redirect:"/*game id number*/"});
+//   });
+//
+//   router.get("/failsendtogame", function(req, res) {
+//   console.log("get failsendtogame");
+//     res.json({redirect:"/join"});
+//
+//   });
+
+router.get("/getGameList", function(req,res,next){
+  return(db.getGameList(res));
+//	return(db.getStudent(req.user.ident,res));
+});
+router.get("/getGame", function(req, res) {
+console.log("get game");
+    if (req.isAuthenticated()) {
+        return(db.getGame(req.query.ident,res));
+    }
+});
+router.get("/getGameInfo", function(req, res) {
+console.log("get gameinfo");
+    if (req.isAuthenticated()) {
+        //code here to loop through all info and find the game
+    }
+});
+
 router.post("/creategame", function(req, res) {
   //console.log(req);
 console.log("post creategame");
@@ -116,18 +146,6 @@ console.log("post creategame");
   );
 });
 
-router.get("/getGame", function(req, res) {
-console.log("get game");
-    if (req.isAuthenticated()) {
-        return(db.getGame(req.query.ident,res));
-    }
-});
-router.get("/getGameInfo", function(req, res) {
-console.log("get gameinfo");
-    if (req.isAuthenticated()) {
-        //code here to loop through all info and find the game
-    }
-});
 router.post("/creategameinfo", function(req, res) {
 console.log("post gameinfo");
     if (req.isAuthenticated()) {
@@ -135,8 +153,8 @@ console.log("post gameinfo");
 
       let players = [];
       players.length = req.body.playerNum;
-      players[0] = new Player(req.body.hostIdent, req.body.hostName, req.body.ident);
-      var info = new GameInfoJS(
+      players[0] = new Player(req.user.ident, req.user.username,req.body.ident);
+      let info = new GameInfoJS(
         req.body.ident,
         req.body.playerNum,
         players,
@@ -144,6 +162,7 @@ console.log("post gameinfo");
       );
       allGameInfos.push(info);
       console.log(allGameInfos);
+      console.log(allUserPlayerInfo);
       //return(db.postGameInfo(allGameInfos,res));
       return res.json({retVal:true});
     }
@@ -161,27 +180,52 @@ console.log("get failplayer");
 router.post("/postPlayer", function(req, res) {
 console.log("post postPlayer");
 if (req.isAuthenticated()) {
+if(existingPlayer(req.user.ident) == false){
   ////check if this is player 1
-for (var i = 0; i < allGameInfos.length; i++) {
-    if(allGameInfos[i].ident == req.body.gameIdent){
-        if(allGameInfos[i].players[0].ident == req.body.ident){
-          console.log("player one post request");
-        }
-        else{
-          console.log("bacic player post request");
-          for (var x = 0; x < allGameInfos[i].players.length; x++) {
-            if(!allGameInfos[i].players[x]){
-              console.log("empty player index " + x);
-              allGameInfos[i].players[x] = new Player(req.body.ident, req.body.name,req.body.gameIdent);
-              break;
-            }
+  for (let i = 0; i < allGameInfos.length; i++) {
+      if(allGameInfos[i].ident == req.body.gameIdent){
+          if(allGameInfos[i].players[0].name == req.user.username){
+            console.log("player one post");
+            console.log(allGameInfos[i].players);
+            let obj = new UserJS(req.user.ident, req.user.username,req.body.gameIdent);
+            allUserPlayerInfo.push(obj);
+            return res.redirect("/successplayer");
+            break;
           }
-          //allGameInfos[i].players.push(new Player(req.body.ident, req.body.name));
-        }
-        console.log(allGameInfos[i].players);
+          else{
+            console.log("bacic player post request");
+            let activecount = 0;
+            for (let y = 0; y <  allGameInfos[i].players.length; y++) {
+              if(allGameInfos[i].players[y] && allGameInfos[i].players[y].ident == req.user.ident){
+                  console.log("player is in game");
+                  return res.redirect("/successjoin");
+                  break;
+              }
+              if(!allGameInfos[i].players[y]){
+                allGameInfos[i].players[y] = new Player(req.user.ident, req.user.username,req.body.gameIdent);
+                console.log(allGameInfos[i].players[y]);
+                break;
+              }
+              else{
+                activecount++;
+              }
+            }
+            if(activecount >= allGameInfos[i].playerNum){
+              console.log("too many players");
+              return res.redirect("/successjoin");
+            }
+              let obj = new UserJS(req.user.ident, req.user.username,req.body.gameIdent);
+              allUserPlayerInfo.push(obj);
+            console.log(allUserPlayerInfo);
+            console.log(allGameInfos[i].players);
+            return res.redirect("/successplayer");
+          }
+        //  console.log(allGameInfos[i].players);
+      }
     }
-  }
-return res.redirect("/successplayer");
+}
+console.log("none of the above");
+return res.redirect("/successjoin");
 }
 else {
 return res.redirect("/failplayer");
@@ -191,17 +235,23 @@ router.get("/player", function (req,res){
   console.log("get player");
   if (req.isAuthenticated()) {
     console.log("success get player");
-    for (var i = 0; i < allGameInfos.length; i++) {
-        if(allGameInfos[i].players[0].ident == req.user.ident){
+    for (let i = 0; i < allGameInfos.length; i++) {
+        if(allGameInfos[i].players[0].name == req.user.username ){
           console.log("send player 1 html");
           let thePath = path.resolve(__dirname,"public/views/playerone.html");
           res.sendFile(thePath);
+          return;
         }
-        else{
+      }
+      if(findPlayerGame(req.user.ident) > 0){
           console.log("send player basic html");
           let thePath = path.resolve(__dirname,"public/views/player.html");
           res.sendFile(thePath);
-        }
+      }
+      else{
+        console.log("not a player");
+        let thePath = path.resolve(__dirname,"public/views/join.html");
+        res.sendFile(thePath);
       }
   }
   else {
@@ -210,5 +260,38 @@ router.get("/player", function (req,res){
     res.sendFile(thePath);
   }
 });
+
+function existingPlayer(ident){
+  console.log("in existing player");
+  for (let i = 0; i < allUserPlayerInfo.length; i++) {
+    if(allUserPlayerInfo[i].ident == ident){
+      console.log("players matching idents");
+      return true;
+    }
+  }
+  return false;
+}
+
+function findPlayerGame(ident){
+  console.log(ident);
+  console.log("in find player game ident");
+  for (let i = 0; i < allUserPlayerInfo.length; i++) {
+    if(allUserPlayerInfo[i].ident == ident){
+      console.log('game ident match');
+      console.log(allUserPlayerInfo[i].gameIdent);
+      return (allUserPlayerInfo[i].gameIdent);
+    }
+  }
+  return (0);
+}
+
+router.get("/findPlayerNum", function (req,res){
+    console.log("finding player game number");
+    if (req.isAuthenticated()) {
+      return res.json({gameIdent: findPlayerGame(req.user.ident)});
+    }
+    return res.redirect("/failplayer");
+});
+
 
 module.exports = router;

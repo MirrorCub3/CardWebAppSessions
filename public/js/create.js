@@ -11,9 +11,14 @@ const pswInput = "<div id= 'pswInput'><label for = 'psw'> Password:</label><inpu
 const shuffleInput = "<div id = 'shuffleDiv'><label for = 'ShuffleOn'>Shuffle On Replacement: </label>  <input type = 'checkbox' id = 'ShuffleOn' title= 'Shuffle Discard Pile Into To Main Deck'></div>";
 var deckSize = deckClassic;
 function SetGame(){
+  if(!validString($("#name").val())){
+    alert("Choose a Different Name");
+    return;
+  }
   console.log("In SetGame");
   if(/^[ ]*[ ]*$/.test($("#name").val())){
     console.log("bad name");
+    $("#name").val(defaultName);
   }
   let all = false;
   if($("#deal").val() == "DealAll"){
@@ -49,12 +54,12 @@ function SetGameInfo(){
             }
             else{
             console.log("game info added, ready to begin game");
-            getPlayer();
+            postPlayer();
             }
           });
 }
-function getPlayer(){
-  $.post("/postPlayer",{ident:ident, name:name, gameIdent: gameIdent},
+function postPlayer(){
+  $.post("/postPlayer",{ gameIdent: gameIdent},
       function(data){
           window.location = data.redirect;
   });
@@ -103,6 +108,7 @@ function onChangePlayer(){
 function onChangeText(){
     console.log("change text");
     if(!validString($("#name").val())){
+      alert("Choose a Different Name");
       $("#name").val("");
     }
 }
@@ -132,6 +138,18 @@ function onChangeInfinite(){
     else{
        $("#shuffleDiv").remove();
     }
+}
+function getCreate(){
+  $.get("/getCreate",function (data){
+    console.log('data redirect: ' + data.redirect);
+      window.location = data.redirect;
+  });
+}
+function joinClicked(){
+  $.get("/getJoin",function (data){
+    console.log('data redirect: ' + data.redirect);
+      window.location = data.redirect;
+  });
 }
 function accountClicked(){
   $.get("/successlogin",function (data){

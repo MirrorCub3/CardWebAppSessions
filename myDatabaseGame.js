@@ -35,7 +35,18 @@ myDatabaseGame.prototype.postGame = function(game,res) {
 //         return res.json({retVal:true});
 //     });
 // }
-
+// myDatabaseGame.prototype.updateUser = function(user,res) { // geting the stuent info - called on document.ready and in the read function on student sessions and admin
+//   User.findOneAndUpdate({ident:user.ident},{playing:user.playing},function(error,olduser) { //doing a find on the students id - the unique identifier
+//     if (error) {
+//       return res.json({retVal:false});
+//     }
+//     else if (olduser == null) {
+//       return res.json({retVal:false});
+//     }
+//     return res.json({retVal:true});
+//   });
+//
+// }
 myDatabaseGame.prototype.getGame = function(ident,res) {
   console.log(" game ident = " + ident);
   GameSettings.find({ident:ident},function(error,info) { //doing a find on the students id - the unique identifier
@@ -49,6 +60,24 @@ myDatabaseGame.prototype.getGame = function(ident,res) {
       if (info.length == 1)
       {
         return res.json({ retVal: true, game: new GameSettingsJS(ident, info[0].host, info[0].name, info[0].players, info[0].gameActive, info[0].private,info[0].password, info[0].dealAll, info[0].startHand, info[0].jokers, info[0].infinite, info[0].replaceShuffle)});
+      }
+      else
+          return res.json({retVal:null});
+
+   });
+}
+myDatabaseGame.prototype.getGameList = function(res) {
+  GameSettings.find({},function(error,info) { //doing a find on the students id - the unique identifier
+      if (error) {
+          return res.json({retVal:null});
+      }
+      else if (info == null) {
+          return res.json({retVal:null});
+      }
+
+      if (info.length >= 1)
+      {
+        return res.json({ retVal: true, info: info});
       }
       else
           return res.json({retVal:null});

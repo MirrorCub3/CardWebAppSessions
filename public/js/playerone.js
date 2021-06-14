@@ -1,4 +1,8 @@
 // client js
+var  gameIdent = 0;
+var ident = 0;
+var name = "";
+
 let myHand = [];
 let id = 1;
 let realId = 0;
@@ -22,6 +26,19 @@ $("#sendMessage").keypress(function(event) { // allows enter key to send message
     document.getElementById("sendButton").click();
   }
 });
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+function ConsoleButton(){
+  if(consoleUp == true){
+    $("#box").slideUp();
+    consoleUp = false;
+    $("#consoleButton").val("show");
+  }
+  else{
+    $("#box").slideDown();
+    consoleUp = true;
+    $("#consoleButton").val("hide");
+  }
+}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 function DrawCard(){
     $.get("/drawcard", {num:1,id:realId},function(data){
@@ -254,9 +271,6 @@ function successinfo(data){
     id = parseInt(data.id);
     realId = parseInt(data.realid);
     //console.log(id + " " + realId);
-    document.getElementById("nameset").value = "Player " + id;
-    document.getElementById("playerId").innerHTML = "PLAYER " + id;
-    document.getElementById("gameName").innerHTML = data.gamename;
     myHand = data.hand;
     //console.log(myHand);
 
@@ -280,11 +294,18 @@ function successinfo(data){
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 $(document).ready(function(){
-    // $("#DiscardToMain").click(discardToMain);
-    // $("#Shuffle").click(ShuffleMain);
-    //console.log("player ready");
-    //$.get("/player2", {index:1,id:id},successinfo);
-    //$.get("/player2",successinfo);
+  console.log("ready");
+  $.get("/userInfo",function(data){ // gets the values stored in the database
+      console.log("in userInfo");
+		if (data.retVal.name) {
+      console.log(data.retVal.name);
+      console.log(data.retVal.ident);
+
+      ident =  data.retVal.ident;
+      name = data.retVal.name;
+      console.log(name);
+    }
+	});
 });
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 window.addEventListener('beforeunload',function () {
@@ -571,7 +592,7 @@ context.lineWidth = 1
  context.fillText (others[1].name, theCanvas.width/3+20, 10);
  if(others.length>2)
  context.fillText (others[2].name, theCanvas.width/3*2+30, 10);
- context.fillText ($("#nameset").val(), 360, 285);
+ context.fillText (name, 360, 285);
 
  }
 
@@ -717,19 +738,3 @@ context.restore();
    }
 ////////////////////////////////////////////////////////
 }
-function UpdateGame(){
-    $.post("/update", {name:$("#name").val()},success);
-}
-function discardToMain(){
-    $.post("/discardtomain",null);
-}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-// function ShuffleMain(){
-//     $.post("/shuffle",null);
-// }
-// check();
-//             function check() {
-//                 $.get("/indexCheck",{playernum:parseInt($("#playernum").val()),joker:$("#Joker").prop("checked")}, checkSuccess);
-//                 let numMilliSeconds = 250;
-//                 setTimeout(check, numMilliSeconds);
-// }

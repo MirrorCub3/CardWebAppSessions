@@ -79,8 +79,19 @@ function onCancel(){
   $("#edit").attr('hidden', false);
 }
 function getCreate(){
-  $.get("/create",function (data){
+  $.get("/getCreate",function (data){
     console.log('data redirect: ' + data.redirect);
+      window.location = data.redirect;
+  });
+}
+function joinClicked(){
+  $.get("/getJoin",function (data){
+    console.log('data redirect: ' + data.redirect);
+      window.location = data.redirect;
+  });
+}
+function accountClicked(){
+  $.get("/successlogin",function (data){
       window.location = data.redirect;
   });
 }

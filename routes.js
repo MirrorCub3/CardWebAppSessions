@@ -70,7 +70,6 @@ function initGameIdent(){ // check everytime a ident is gotten to update it to t
   }
 }
 
-
 router.get("/successroot", function(req, res) {
 console.log("get successroot");
 	res.json({redirect:"/"});
@@ -103,20 +102,28 @@ console.log("get faillogin");
 });
 router.get("/successcreate", function(req, res) {
 console.log("get successcreate");
-	res.json({redirect:"/sendCreate"});
+	res.json({redirect:"/create"});
 });
 router.get("/failcreate", function(req, res) {
 console.log("get failcreate");
 	res.json({redirect:"/login"});
 });
-router.get("/successplayer", function(req, res) {
-console.log("get successplayer");
-	res.json({redirect:"/player"});
+router.get("/successjoin", function(req, res) {
+console.log("get successjoin");
+	res.json({redirect:"/join"});
 });
-router.get("/failplayer", function(req, res) {
-console.log("get failplayer");
+router.get("/failjoin", function(req, res) {
+console.log("get failjoin");
 	res.json({redirect:"/login"});
 });
+// router.get("/successplayer", function(req, res) {
+// console.log("get successplayer");
+// 	res.json({redirect:"/player"});
+// });
+// router.get("/failplayer", function(req, res) {
+// console.log("get failplayer");
+// 	res.json({redirect:"/login"});
+// });
 
 
 
@@ -157,12 +164,12 @@ router.get("/account", function(req, res) {
   console.log("get account");
   if (req.isAuthenticated()) {
 
-    if (req.user.username == "admin") // admin is a special user built into the code - ie hardcoded
-    {
-       let thePath = path.resolve(__dirname,"public/views/adminsession.html"); // sends the admin specific html to admin
-       res.sendFile(thePath);
-    }
-    else
+    // if (req.user.username == "admin") // admin is a special user built into the code - ie hardcoded
+    // {
+    //    let thePath = path.resolve(__dirname,"public/views/adminsession.html"); // sends the admin specific html to admin
+    //    res.sendFile(thePath);
+    // }
+    //else
     {
 	     let thePath = path.resolve(__dirname,"public/views/account.html");
 	     res.sendFile(thePath);
@@ -194,7 +201,7 @@ router.get("/adminInfo",function(req,res){ // called on admin session document.l
     res.json(null);
   }
 });
-router.get("/sendCreate",function(req,res){
+router.get("/create",function(req,res){
 
   if (req.isAuthenticated()) {
 console.log("auth in get create" + __dirname);
@@ -208,7 +215,7 @@ res.sendFile(thePath);
   }
 });
 
-router.get("/create",function(req,res){
+router.get("/getCreate",function(req,res){
 
   if (req.isAuthenticated()) {
 return res.redirect("/successcreate");
@@ -218,6 +225,29 @@ return res.redirect("/successcreate");
   }
 });
 
+router.get("/getJoin",function(req,res){
+
+  if (req.isAuthenticated()) {
+return res.redirect("/successjoin");
+  }
+  else {
+  return res.redirect("/failjoin");
+  }
+});
+
+router.get("/join",function(req,res){
+
+  if (req.isAuthenticated()) {
+    console.log("success get Join");
+let thePath = path.resolve(__dirname,"public/views/join.html");
+res.sendFile(thePath);
+  }
+  else {
+  console.log("fail get Join");
+  let thePath = path.resolve(__dirname,"public/views/login.html");
+  res.sendFile(thePath);
+  }
+});
 
 
 //==================
@@ -285,7 +315,7 @@ console.log("post signup");
     var newUser = new User({ // should only get to here id the user doesnt alredy exist
       username: username,
       password: password,
-      ident: ident // variable at the top
+      ident: ident// variable at the top
     });
     newUser.save(next);    //this line has to be called. this is what stores the above info into the users collection
   });
