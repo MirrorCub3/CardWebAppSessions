@@ -1,21 +1,25 @@
 const joinDiv = "<div class = '-1' id = 'child'></div>";
 const joinAppend = "<section><h2 id = 'gameName'>Virtual Cards</h2><p id = 'playerNum'>Active Players: </p>  <p id = 'hostName'> Host: </p><input id='joinButton' type='button' value=' Join Game ' onclick = joinGame(this)/></section>";
-
+const findName = $("#gameName");
+const findNum = $("#playerNum");
+const findHost = $("#hostName");
 
 getGames();
 function getGames() {
   console.log("getting games");
-    $("#allGames").empty();
     $.get("/getGameList",function(data){
       if(!data.retVal){
+        $("#allGames").empty();
         $("#noGame").attr("hidden", false);
         return;
       }
+      $("#allGames").empty();
       $("#noGame").attr("hidden", true);
       for (var i = 0; i < data.info.length; i++) {
+        console.log(data.info[i]);
         $("#allGames").append("<div class =" + data.info[i].ident + "  id = 'child'></div>");
         $("."+data.info[i].ident+"").append(joinAppend);
-        $("."+data.info[i].ident+"").find($("#gameName")).text(data.info[i].name); ;
+        $("."+data.info[i].ident+"").find(findName).text(data.info[i].name); ;
       }
     });
     let numMilliSeconds = 2000;
@@ -47,7 +51,7 @@ function logoutClicked(){ //logout function
 	return false;
 }
 function joinGame(element){
-
+console.log("joinclicked");
 }
 $(document).ready(function(){
   console.log("ready");
