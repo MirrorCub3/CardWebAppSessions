@@ -200,6 +200,8 @@ if(!existingPlayer(req.user.ident)){
             console.log("bacic player post request");
             for (var y = 0; y <  allGameInfos[i].players.length; y++) {
               if(!allGameInfos[i].players[y]){
+                let obj = new UserJS(req.user.ident, req.user.username,req.body.gameIdent);
+                allUserPlayerInfo.push(obj);
                 allGameInfos[i].players[y] = new Player(req.user.ident, req.user.username,req.body.gameIdent);
                 console.log(allGameInfos[i].players[y]);
                 break;
