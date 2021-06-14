@@ -185,7 +185,7 @@ for (var i = 0; i < allGameInfos.length; i++) {
         }
         else{
           console.log("bacic player post request");
-          allGameInfos[i].ident.players.push(new Player(req.user.ident, req.user.username));
+          allGameInfos[i].players.push(new Player(req.user.ident, req.user.username));
         }
         console.log(allGameInfos[i].players);
     }
