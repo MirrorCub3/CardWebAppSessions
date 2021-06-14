@@ -103,6 +103,7 @@ function onChangePlayer(){
 function onChangeText(){
     console.log("change text");
     if(!validString($("#name").val())){
+      alert("Choose a Different Name");
       $("#name").val("");
     }
 }
