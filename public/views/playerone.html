@@ -17,26 +17,28 @@
         <input id="sendMessage" type="text">
         <!--<input id="sendButton" type= "submit" value="Send" onClick = "SendMessage()">-->
         <hr>
-        <div id="tableButtons" style = "align-items: center;">
+        <div id="tableButtons" style = "text-align:center">
           <input id="clearTable" type= "button" value="Clear" title= "Discard All Cards On Your Table" onClick = "clearTable()" >
           <input id="pullTable" type= "button" value="Pull" title= " Pull Most Recent Card Back From Table" onClick = "PullTable()" >
           <input id="toTable" type= "button" value="Send To Table" title= "Send Card To Table - Cards Over Limit Will Be Discarded" onClick = "ToTable()" >
         </div>
         <hr>
-        <div id = "pileButtons">
+        <div id = "pileButtons" style = "text-align:center">
             <input id="drawDiscard" type= "button" disabled value="Draw Discard" title= "Draw One Card From Top of Discard" onClick = "drawDiscard()">
             <input id="discard" type= "button" value="Discard" title= "Discard Currently Selected Card" onClick = "Discard()">
             <input id="main" type= "button" value="Draw" title= "Draw One Card" onClick = "DrawCard()">
         </div>
         <hr>
-        <div id = "shiftButtons">
+        <div id = "shiftButtons" style = "text-align:center">
           <input id="shiftLeft" type= "button" value=" <Shift Left" title= "Shift Hand To The Left" onClick = "shiftLeft()" >
           <input id="shiftRight" type= "button" value=" Shift Right> " title= "Shift Hand To The Right" onClick = "shiftRight()" >
         </div>
           <hr>
-          <div id = "adminButtons">
+          <div id = "adminButtons" style = "text-align:center">
             <input id = "DiscardToMain" type="button" disabled value="Discard To Main" title= "Return Discards To Main" >
             <input id = "Shuffle" type="button" disabled value="Shuffle Main">
+            <hr>
+            <input id = "End" type="button" value="End Game" style: >
           </div>
       </div>
     </section>

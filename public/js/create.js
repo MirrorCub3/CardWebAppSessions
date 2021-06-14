@@ -79,15 +79,15 @@ function postPlayer(){
 // }
 
 
-function onChangeDeal(){
-// check dealType change
-     if($("#deal").val() != "StartingHand"){
-       $("#hand").remove();
-     }
-     else{
-       $("#Player").append(handInput)
-     }
-}
+// function onChangeDeal(){
+// // check dealType change
+//      if($("#deal").val() != "StartingHand"){
+//        $("#hand").remove();
+//      }
+//      else{
+//        $("#Player").append(handInput)
+//      }
+// }
 
 function onChangePlayer(){
   if($("#Joker").prop("checked")){

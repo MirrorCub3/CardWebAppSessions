@@ -39,11 +39,8 @@
                     <label for="playernum">Players:</label>
                     <input id="playernum" type="number" name="playernum" min = "1" max = "4" step = "1" value = "1" title = "Max 4 Players" onchange = 'onChangePlayer()'><br>
 
-                    <label for = "deal"> Dealing Options: </label>
-                    <select id = "deal" name = "deal" onchange="onChangeDeal()">
-                        <option selected = "selected" value = "DealAll" title = "All Cards In The Deck Are Dealt Until Empty"> Deal All </option>
-                        <option value = "StartingHand" title = "Set A Number Of Cards For Each Player To Start With"> Starting Hand </option>
-                    </select>
+                    <label for = "hand"> Starting Hand: </label>
+                    <input id='hand' type='number' name='hand' min = '0' max = '60' step = '1' value = '0' title = 'The Amount Of Cards Each Player Starts With' onchange = 'onChangePlayer()'>
                 </div>
             </fieldset>
             </section>
@@ -64,7 +61,7 @@
                     <fieldset>
                       <legend>Deck</legend>
                     <label for = "Joker">Jokers </label>
-                    <input type = "checkbox" id = "Joker" title= "Create Deck With 2 Jokers"><br>
+                    <input type = "checkbox" id = "Joker" title= "Create Deck With 2 Jokers" onchange = 'onChangePlayer()'><br>
                     <div id = 'infiniteDiv'>
                     <label for = "Infinite">Infinite Mode: </label>
                     <input type = "checkbox" id = "Infinite" title= "All Discards Are Constantly Returned To The Main Deck" onchange="onChangeInfinite()"><br>

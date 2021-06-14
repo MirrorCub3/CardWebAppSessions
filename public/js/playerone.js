@@ -1,3 +1,5 @@
+
+
 // client js
 var  gameIdent = 0;
 var ident = 0;
@@ -41,9 +43,10 @@ function ConsoleButton(){
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 function DrawCard(){
-    $.get("/drawcard", {num:1,id:realId},function(data){
+    $.get("/drawcard", {num:1,ident:ident,gameIdent:gameIdent},function(data){
         if(!data)
           return;
+          console.log(data);
         myHand = data.cards;
         // console.log("draw success");
         // console.log(myHand);
@@ -304,6 +307,14 @@ $(document).ready(function(){
       ident =  data.retVal.ident;
       name = data.retVal.name;
       console.log(name);
+
+      $.get("/findPlayerNum",function(data){
+          console.log("in findPlayerNum");
+    		if (data) {
+          console.log(data);
+          gameIdent = data.gameident;
+        }
+    	});
     }
 	});
 });

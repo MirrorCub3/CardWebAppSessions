@@ -6,6 +6,7 @@ let GameInfoJS = function(ident,playerNum = 1, players = [], deck = new Deck()) 
   this.playerNum = playerNum;
 	this.players = players;
   this.deck = deck;
+	this.full = false;
 }
 
 module.exports = GameInfoJS;

@@ -86,16 +86,32 @@ function initGameIdent(){
 //   }
 // }
 
-// router.get("/successsendtogame", function(req, res) {
-//   console.log("get successsendtogame");
-//         res.json({redirect:"/*game id number*/"});
-//   });
-//
-//   router.get("/failsendtogame", function(req, res) {
-//   console.log("get failsendtogame");
-//     res.json({redirect:"/join"});
-//
-//   });
+router.get("/drawcard",function(req,res) {
+  console.log("draw");
+  let myInfo = findGameInfo(req.body.gameIdent);
+    if(myInfo.deck.CheckEmpty()){
+        res.json(null);
+        return;
+    }
+  let handDB = null;
+    for (let index of myInfo.players) {
+        if(myInfo.players[index] = req.user.ident){
+              handDB= myInfo.players[index];
+        }
+    }
+    let cards = [];
+    for(let x = 0; x < req.body.num;x++){
+        cards[cards.length] = myInfo.deck.Draw(); //calling a method in the cards.js class
+    }
+    for(let card in cards){
+        if(cards[card] == null){
+            cards.splice(card, 1); // removing null cards
+        }
+        let myHand = handDB.hand;
+        myHand.hand[myHand.hand.length] = cards[card];
+    }
+    res.json({cards:handDB.hand});
+});
 
 router.get("/getGameList", function(req,res,next){
   return(db.getGameList(res));
@@ -107,12 +123,12 @@ console.log("get game");
         return(db.getGame(req.query.ident,res));
     }
 });
-router.get("/getGameInfo", function(req, res) {
-console.log("get gameinfo");
-    if (req.isAuthenticated()) {
-        //code here to loop through all info and find the game
-    }
-});
+// router.get("/getGameInfo", function(req, res) {
+// console.log("get gameinfo");
+//     if (req.isAuthenticated()) {
+//         //code here to loop through all info and find the game
+//     }
+// });
 
 router.post("/creategame", function(req, res) {
   //console.log(req);
@@ -150,6 +166,7 @@ router.post("/creategameinfo", function(req, res) {
 console.log("post gameinfo");
     if (req.isAuthenticated()) {
       let deck = new Deck(req.body.replace,req.body.jokers);
+      deck.shuffle();
 
       let players = [];
       players.length = req.body.playerNum;
@@ -161,7 +178,7 @@ console.log("post gameinfo");
         deck
       );
       allGameInfos.push(info);
-      console.log(allGameInfos);
+      console.log(allGameInfos[0].deck);
       console.log(allUserPlayerInfo);
       //return(db.postGameInfo(allGameInfos,res));
       return res.json({retVal:true});
@@ -183,6 +200,10 @@ if (req.isAuthenticated()) {
 if(existingPlayer(req.user.ident) == false){
   ////check if this is player 1
   for (let i = 0; i < allGameInfos.length; i++) {
+    if(allGameInfos[i].full){
+        return res.redirect("/successjoin");
+        return;
+    }
       if(allGameInfos[i].ident == req.body.gameIdent){
           if(allGameInfos[i].players[0].name == req.user.username){
             console.log("player one post");
@@ -212,6 +233,7 @@ if(existingPlayer(req.user.ident) == false){
             }
             if(activecount >= allGameInfos[i].playerNum){
               console.log("too many players");
+              allGameInfos[i].full = true;
               return res.redirect("/successjoin");
             }
               let obj = new UserJS(req.user.ident, req.user.username,req.body.gameIdent);
@@ -221,6 +243,7 @@ if(existingPlayer(req.user.ident) == false){
             return res.redirect("/successplayer");
           }
         //  console.log(allGameInfos[i].players);
+        break;
       }
     }
 }
@@ -278,11 +301,19 @@ function findPlayerGame(ident){
   for (let i = 0; i < allUserPlayerInfo.length; i++) {
     if(allUserPlayerInfo[i].ident == ident){
       console.log('game ident match');
-      console.log(allUserPlayerInfo[i].gameIdent);
       return (allUserPlayerInfo[i].gameIdent);
     }
   }
   return (0);
+}
+function findGameInfo(ident){
+  console.log('getting info');
+  for (let i = 0; i < allGameInfos.length; i++) {
+    if(allGameInfos[i].ident == ident)
+    console.log(allGameInfos[i]);
+    return (allGameInfos[i]);
+  }
+  return null;
 }
 
 router.get("/findPlayerNum", function (req,res){
