@@ -15,6 +15,7 @@ function getGames() {
       for (var i = 0; i < data.info.length; i++) {
         $("#allGames").append("<div class =" + data.info[i].ident + "  id = 'child'></div>");
         $("."+data.info[i].ident+"").append(joinAppend);
+        $("."+data.info[i].ident+"").find($("#gameName")).text(data.info[i].name); ;
       }
     });
     let numMilliSeconds = 2000;
