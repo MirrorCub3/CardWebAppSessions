@@ -19,7 +19,7 @@ function getGames() {
         if(data.info[i].gameActive == true){
         console.log(data.info[i].name);
         $("#allGames").append("<div class =" + data.info[i].ident + "  id = 'child'></div>");
-        $("."+data.info[i].ident+"").append(joinAppend);
+        $("."+data.info[i].ident+"").append("<section><h2 id = 'gameName'> "+data.info[i].name+"</h2><p id = 'playerNum'>Active Players: "+data.info[i].players+"</p>  <p id = 'hostName'> Host: "+data.info[i].host+"</p><input id='joinButton' type='button' value=' Join Game ' onclick = 'joinGame(this)'/></section>");
         }
       }
     });
