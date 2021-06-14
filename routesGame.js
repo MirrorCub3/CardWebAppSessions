@@ -235,10 +235,11 @@ function existingPlayer(ident){
   return new Promise(function(resolve,reject) { // an instance of a promise, putting the code we want to happen first inside that promise
     for (var i = 0; i < allGameInfos.length; i++) {
       for (var x = 0; x < allGameInfos[i].players.length; x++) {
-          if(ident == allGameInfos[i].players[x].ident){
+          if(ident == allGameInfos[i].players[x].ident && allGameInfos[i].players[x].active){
               reject(ident);
           }
           else{
+            allGameInfos[i].players[x].active = true;
             resolve(ident);
           }
       }
