@@ -315,7 +315,8 @@ console.log("post signup");
     var newUser = new User({ // should only get to here id the user doesnt alredy exist
       username: username,
       password: password,
-      ident: ident // variable at the top
+      ident: ident,// variable at the top
+      playing:false,
     });
     newUser.save(next);    //this line has to be called. this is what stores the above info into the users collection
   });

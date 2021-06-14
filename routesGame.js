@@ -151,7 +151,7 @@ console.log("post gameinfo");
 
       let players = [];
       players.length = req.body.playerNum;
-      players[0] = new Player(req.user.ident, req.user.username);
+      players[0] = new Player(req.user.ident, req.user.username,req.body.ident);
       var info = new GameInfoJS(
         req.body.ident,
         req.body.playerNum,
@@ -181,14 +181,22 @@ if (req.isAuthenticated()) {
 for (var i = 0; i < allGameInfos.length; i++) {
     if(allGameInfos[i].ident == req.body.gameIdent){
       for (var x = 0; x < allGameInfos[i].players.length; x++) {
-        if(allGameInfos[i].players[x] && allGameInfos[i].players[x].ident == req.user.ident){
-          console.log("player is in the game already");
+        if(allGameInfos[i].players[0].ident == req.user.ident){
+          console.log("player one post");
+          console.log(allGameInfos[i].players);
+          return res.redirect("/successplayer");
+        }
+        else if(allGameInfos[i].players[x].ident == req.user.ident){
+            console.log("player is in game");
+            return res.redirect("/successjoin");
         }
         else{
           console.log("bacic player post request");
-          allGameInfos[i].players.push(new Player(req.user.ident, req.user.username));
+          allGameInfos[i].players.push(new Player(req.user.ident, req.user.username,req.body.gameIdent));
+          console.log(allGameInfos[i].players);
+          return res.redirect("/successplayer");
         }
-        console.log(allGameInfos[i].players);
+      //  console.log(allGameInfos[i].players);
       }
     }
   }
@@ -201,21 +209,29 @@ return res.redirect("/failplayer");
 router.get("/player", function (req,res){
   console.log("get player");
   if (req.isAuthenticated()) {
+    if(req.user.playing){
+      console.log("active player");
+      let thePath = path.resolve(__dirname,"public/views/join.html");
+      res.sendFile(thePath);
+      return;
+    }
     console.log("success get player");
     for (var i = 0; i < allGameInfos.length; i++) {
         if(allGameInfos[i].players[0].name == req.user.username){
           console.log("send player 1 html");
+          let obj = new UserJS(req.user.ident,req.user.username,req.body.grade,true);
+          db.updateUser(obj,res);
           let thePath = path.resolve(__dirname,"public/views/playerone.html");
           res.sendFile(thePath);
         }
         else{
           console.log("send player basic html");
+          let obj = new UserJS(req.user.ident,req.user.username,req.body.grade,true);
+          db.updateUser(obj,res);
           let thePath = path.resolve(__dirname,"public/views/player.html");
           res.sendFile(thePath);
         }
       }
-    let thePath = path.resolve(__dirname,"public/views/player.html");
-    res.sendFile(thePath);
   }
   else {
     console.log("fail get create");
