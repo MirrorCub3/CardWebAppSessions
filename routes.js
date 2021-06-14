@@ -169,7 +169,7 @@ router.get("/account", function(req, res) {
     //    let thePath = path.resolve(__dirname,"public/views/adminsession.html"); // sends the admin specific html to admin
     //    res.sendFile(thePath);
     // }
-    else
+    //else
     {
 	     let thePath = path.resolve(__dirname,"public/views/account.html");
 	     res.sendFile(thePath);
